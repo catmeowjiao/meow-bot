@@ -11,7 +11,7 @@ from .handle import Handle
 from .parser import npm_parser
 from .manager import plugin_manager
 
-npm = on_shell_command("npm", parser=npm_parser, priority=2, block=True)
+npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 
 
 # 在 Matcher 运行前检测其是否启用
