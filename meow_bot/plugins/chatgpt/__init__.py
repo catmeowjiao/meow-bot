@@ -57,6 +57,9 @@ change_points = on_command("change", permission=SUPERUSER, block=True, priority=
 # 点数充值
 buy_points = on_command("buy", permission=SUPERUSER, block=True, priority=2)
 
+# 转账
+pay_points = on_command("pay", block=True, priority=2)
+
 
 # 带记忆的聊天
 @chat_record.handle()
@@ -128,7 +131,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
 async def _(event: MessageEvent, msg: Message = CommandArg()):
     content = msg.extract_plain_text()
     if isinstance(event, PrivateMessageEvent) and not plugin_config.enable_private_chat:
-        chat_record.finish("对不起，私聊暂不支持此功能。")
+        chat_request.finish("对不起，私聊暂不支持此功能。")
     file = open("data/chatgpt.json", "r")
     file_data = file.read()
     file.close()
@@ -137,22 +140,22 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
         if event.get_user_id() not in file_dict.keys():
             file_dict[event.get_user_id()] = 1000
         if file_dict[event.get_user_id()] <= 0:
-            await chat_record.finish(MessageSegment.text("您的点数不足, 请联系meowjiao获取点数"))
-    await chat_record.send(MessageSegment.text("ChatGPT正在思考中......"))
+            await chat_request.finish(MessageSegment.text("您的点数不足"))
+    await chat_request.send(MessageSegment.text("ChatGPT正在思考中......"))
 
     # 开始请求
     try:
         res = await get_response(content, proxy)
     except Exception as error:
-        await chat_record.finish(str(error), at_sender=True)
+        await chat_request.finish(str(error), at_sender=True)
     input_token = len(encoding.encode(content))
     output_token = len(encoding.encode(res))
     total = input_token + output_token
     if event.get_user_id() == "3493487882":
-        await chat_record.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
+        await chat_request.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
     else:
         file_dict[event.get_user_id()] -= total
-        await chat_record.send(
+        await chat_request.send(
             MessageSegment.text(
                 "本次使用消耗"
                 + str(total)
@@ -164,7 +167,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
     file = open("data/chatgpt.json", "w")
     file.write(file_data)
     file.close()
-    await chat_record.finish(MessageSegment.text(res), at_sender=True)
+    await chat_request.finish(MessageSegment.text(res), at_sender=True)
 
 
 @reset.handle()
@@ -188,24 +191,22 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
             if event.get_user_id() not in file_dict.keys():
                 file_dict[event.get_user_id()] = 1000
             if file_dict[event.get_user_id()] <= 0:
-                await chat_record.finish(MessageSegment.text("您的点数不足, 请联系meowjiao获取点数"))
-        await chat_record.send(MessageSegment.text("ChatGPT正在思考中......"))
+                await reset.finish(MessageSegment.text("您的点数不足"))
+        await reset.send(MessageSegment.text("ChatGPT正在思考中......"))
 
         # 开始请求
         try:
             res = await session[session_id].get_response(content, proxy)
         except Exception as error:
-            await chat_record.finish(str(error), at_sender=True)
+            await reset.finish(str(error), at_sender=True)
         input_token = len(encoding.encode(content))
         output_token = len(encoding.encode(res))
         total = input_token + output_token
         if event.get_user_id() == "3493487882":
-            await chat_record.send(
-                MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费.")
-            )
+            await reset.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
         else:
             file_dict[event.get_user_id()] -= total
-            await chat_record.send(
+            await reset.send(
                 MessageSegment.text(
                     "本次使用消耗"
                     + str(total)
@@ -217,7 +218,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
         file = open("data/chatgpt.json", "w")
         file.write(file_data)
         file.close()
-        await chat_record.finish(MessageSegment.text(res), at_sender=True)
+        await reset.send(MessageSegment.text(res), at_sender=True)
         await reset.finish(MessageSegment.text("成功重置历史记录并设置提示词!"), at_sender=True)
 
 
@@ -238,22 +239,22 @@ async def _(event: MessageEvent):
         if event.get_user_id() not in file_dict.keys():
             file_dict[event.get_user_id()] = 1000
         if file_dict[event.get_user_id()] <= 0:
-            await chat_record.finish(MessageSegment.text("您的点数不足, 请联系meowjiao获取点数"))
-    await chat_record.send(MessageSegment.text("ChatGPT正在思考中......"))
+            await reset_dev.finish(MessageSegment.text("您的点数不足, 请联系meowjiao获取点数"))
+    await reset_dev.send(MessageSegment.text("ChatGPT正在思考中......"))
 
     # 开始请求
     try:
         res = await session[session_id].get_response(content, proxy)
     except Exception as error:
-        await chat_record.finish(str(error), at_sender=True)
+        await reset_dev.finish(str(error), at_sender=True)
     input_token = len(encoding.encode(content))
     output_token = len(encoding.encode(res))
     total = input_token + output_token
     if event.get_user_id() == "3493487882":
-        await chat_record.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
+        await reset_dev.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
     else:
         file_dict[event.get_user_id()] -= total
-        await chat_record.send(
+        await reset_dev.send(
             MessageSegment.text(
                 "本次使用消耗"
                 + str(total)
@@ -265,15 +266,15 @@ async def _(event: MessageEvent):
     file = open("data/chatgpt.json", "w")
     file.write(file_data)
     file.close()
-    await chat_record.finish(MessageSegment.text(res), at_sender=True)
-    await reset.finish(MessageSegment.text("成功重置历史记录并设置为开发者模式!"), at_sender=True)
+    await reset_dev.send(MessageSegment.text(res), at_sender=True)
+    await reset_dev.finish(MessageSegment.text("成功重置历史记录并设置为开发者模式!"), at_sender=True)
 
 
 @query_points.handle()
 async def _(msg: Message = CommandArg()):
     user_id = str(str(msg).split(" ")[0])
     if user_id == "3493487882":
-        await chat_record.send(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数"))
+        await query_points.finish(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数"))
     else:
         file = open("data/chatgpt.json", "r")
         file_data = file.read()
@@ -281,7 +282,7 @@ async def _(msg: Message = CommandArg()):
         file_dict = json.loads(file_data)
         if user_id not in file_dict.keys():
             file_dict[user_id] = 1000
-        await chat_record.send(
+        await query_points.send(
             MessageSegment.text("被查询用户的剩余点数为: " + str(file_dict[user_id]))
         )
         file_data = json.dumps(file_dict)
@@ -295,7 +296,9 @@ async def _(msg: Message = CommandArg()):
     user_id = str(str(msg).split(" ")[0])
     number = int(str(msg).split(" ")[1])
     if user_id == "3493487882":
-        await chat_record.send(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数, 无需更改点数"))
+        await change_points.finish(
+            MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数, 无需更改点数")
+        )
     else:
         file = open("data/chatgpt.json", "r")
         file_data = file.read()
@@ -304,7 +307,7 @@ async def _(msg: Message = CommandArg()):
         if user_id not in file_dict.keys():
             file_dict[user_id] = 1000
         file_dict[user_id] = number
-        await chat_record.send(
+        await change_points.send(
             MessageSegment.text("更改成功!被更改用户的剩余点数为: " + str(file_dict[user_id]))
         )
         file_data = json.dumps(file_dict)
@@ -318,7 +321,7 @@ async def _(msg: Message = CommandArg()):
     user_id = str(str(msg).split(" ")[0])
     number = int(str(msg).split(" ")[1])
     if user_id == "3493487882":
-        await chat_record.send(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数, 无需充值"))
+        await buy_points.finish(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数, 无需充值"))
     else:
         file = open("data/chatgpt.json", "r")
         file_data = file.read()
@@ -327,8 +330,54 @@ async def _(msg: Message = CommandArg()):
         if user_id not in file_dict.keys():
             file_dict[user_id] = 1000
         file_dict[user_id] += number
-        await chat_record.send(
+        await buy_points.send(
             MessageSegment.text("充值成功!被充值用户的剩余点数为: " + str(file_dict[user_id]))
+        )
+        file_data = json.dumps(file_dict)
+        file = open("data/chatgpt.json", "w")
+        file.write(file_data)
+        file.close()
+
+
+@pay_points.handle()
+async def _(event: MessageEvent, msg: Message = CommandArg()):
+    user_id = str(str(msg).split(" ")[0])
+    number = int(str(msg).split(" ")[1])
+    if user_id == "3493487882":
+        await pay_points.finish(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数, 无需转账"))
+    elif event.get_user_id() == "3493487882":
+        file = open("data/chatgpt.json", "r")
+        file_data = file.read()
+        file.close()
+        file_dict = json.loads(file_data)
+        if user_id not in file_dict.keys():
+            file_dict[user_id] = 1000
+        file_dict[user_id] += number
+        await pay_points.send(
+            MessageSegment.text("转账成功!被转账用户的剩余点数为: " + str(file_dict[user_id]))
+        )
+        file_data = json.dumps(file_dict)
+        file = open("data/chatgpt.json", "w")
+        file.write(file_data)
+        file.close()
+    else:
+        file = open("data/chatgpt.json", "r")
+        file_data = file.read()
+        file.close()
+        file_dict = json.loads(file_data)
+        if file_dict[event.get_user_id()] < number:
+            await pay_points.finish("您的剩余点数不足, 无法转账")
+        if user_id not in file_dict.keys():
+            file_dict[user_id] = 1000
+        file_dict[user_id] += number
+        file_dict[event.get_user_id()] -= number
+        await pay_points.send(
+            MessageSegment.text(
+                "充值成功!被转账用户的剩余点数为: "
+                + str(file_dict[user_id])
+                + ", 您剩余的点数为: "
+                + str(file_dict[event.get_user_id()])
+            )
         )
         file_data = json.dumps(file_dict)
         file = open("data/chatgpt.json", "w")
