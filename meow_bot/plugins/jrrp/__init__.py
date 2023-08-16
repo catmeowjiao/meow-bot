@@ -1,5 +1,6 @@
 import nonebot
 import random
+import time
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 
