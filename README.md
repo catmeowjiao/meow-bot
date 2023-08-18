@@ -15,6 +15,7 @@
 - reboot: 自己编写
 - sign: 自己编写
 - status: 基于https://github.com/cscs181/QQ-GitHub-Bot/tree/master/src/plugins/nonebot_plugin_status
+- sudo: 基于https://github.com/This-is-XiaoDeng/nonebot-plugin-sudo
 - update: 自己编写
 
 ---
