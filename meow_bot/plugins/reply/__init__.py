@@ -3,7 +3,7 @@ from nonebot.params import EventPlainText
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 
 
-reply = on_message(check_brackets, priority=1, block=False)
+reply = on_message(priority=1, block=False)
 
 
 @reply.handle()
