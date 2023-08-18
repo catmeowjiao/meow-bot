@@ -1,14 +1,12 @@
-import random
 from nonebot import on_message
-from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent
 
 reply = on_message(priority=1, block=False)
 
 
 @reply.handle()
-async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+async def _(bot: Bot, event: MessageEvent):
+    content = event.get_message()
     if "我是傻逼" in content:
         await reply.finish("傻逼")
     elif "好骂" in content or "怼" in content or "被骂了" in content:
