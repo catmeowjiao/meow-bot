@@ -10,14 +10,19 @@ async def _(bot: Bot, event: MessageEvent):
     if "我是傻逼" in content:
         await reply.finish("傻逼")
     elif (
-        "典" in content
-        or "孝" in content
-        or "急" in content
-        or "乐" in content
-        or "蚌" in content
-        or "批" in content
-        or "赢" in content
-        or "麻" in content
+        content == "典"
+        or content == "孝"
+        or content == "急"
+        or content == "乐"
+        or content == "蚌"
+        or content == "批"
+        or content == "赢"
+        or content == "麻"
+        or content == "盒"
+        or content == "寄"
+        or content == "创"
+        or content == "绝"
+        or content == "对"
         or "原神怎么你了" in content
     ):
         await reply.finish("六字真言?在我这里不管用!")
