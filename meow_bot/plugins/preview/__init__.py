@@ -13,7 +13,7 @@ preview = on_command("preview", priority=2, block=True)
 
 @preview.handle()
 async def preview_website(event: MessageEvent, message: Message = CommandArg()):
-    file_name = f"preview.image_{int(time.time())}"
+    file_name = f"preview_{int(time.time())}"
     url = str(message)
     async with async_playwright() as p:
         browser = await p.chromium.launch()
