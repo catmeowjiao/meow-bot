@@ -1,6 +1,6 @@
 import random
 from nonebot import on_message
-from nonebot.params import EventPlainText
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 
 reply = on_message(priority=1, block=False)
