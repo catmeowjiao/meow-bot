@@ -12,7 +12,6 @@ update = on_command("update", permission=SUPERUSER, block=True, priority=2)
 async def _(bot: Bot):
     await update.send("正在更新")
     await update.send(os.popen("git pull").read())
-    await update.send("更新完成, 正在重启")
     file = open("reboot.py", "w")
     file.write(str(time.time()))
     file.close()
