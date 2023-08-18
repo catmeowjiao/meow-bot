@@ -8,5 +8,5 @@ reply = on_message(check_brackets, priority=1, block=False)
 
 @reply.handle()
 async def _(bot: Bot, event: MessageEvent):
-    if event.get_user_id() == "1951474558":
-        await reply.finish("您好, 尊贵的SB用户")
+    if event.get_user_id() == "3493487882":
+        await reply.finish("您好, SB")
