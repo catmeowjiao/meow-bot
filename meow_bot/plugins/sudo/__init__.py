@@ -1,3 +1,4 @@
+import json
 from nonebot import get_driver
 from nonebot.message import event_preprocessor
 from nonebot.adapters.onebot.v11 import MessageEvent
