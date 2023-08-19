@@ -9,8 +9,6 @@ driver = nonebot.get_driver()
 driver.register_adapter(ONEBOT_V11Adapter)
 
 
-nonebot.load_from_toml("pyproject.toml")
-
 if not os.path.isdir("data"):
     os.mkdir("data")
 
@@ -32,6 +30,7 @@ if not os.path.isdir("data/blacklist.json"):
     file = open("data/blacklist.json", "w")
     file.write('{"data":[]}')
     file.close()
+nonebot.load_from_toml("pyproject.toml")
 
 if __name__ == "__main__":
     nonebot.run()

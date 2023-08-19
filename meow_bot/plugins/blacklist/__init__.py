@@ -3,6 +3,7 @@ from nonebot import on_command
 from nonebot.permission import SUPERUSER
 from nonebot.adapters import Bot
 from nonebot.adapters.onebot.v11 import MessageEvent
+from nonebot.exception import IgnoredException
 from nonebot.message import event_preprocessor
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Message
@@ -11,7 +12,6 @@ file = open("data/blacklist.json", "r")
 file_data = file.read()
 file.close()
 blacklist = json.loads(file_data)
-print(blacklist)
 ban = on_command("ban", permission=SUPERUSER, priority=2, block=True)
 unban = on_command("unban", permission=SUPERUSER, priority=2, block=True)
 
