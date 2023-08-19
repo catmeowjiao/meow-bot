@@ -28,6 +28,10 @@ if not os.path.isdir("data/broadcast.json"):
     file = open("data/broadcast.json", "w")
     file.write('{"data":[]}')
     file.close()
+if not os.path.isdir("data/blacklist.json"):
+    file = open("data/blacklist.json", "w")
+    file.write("{}")
+    file.close()
 
 if __name__ == "__main__":
     nonebot.run()
