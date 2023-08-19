@@ -11,7 +11,14 @@ config = Config.parse_obj(get_driver().config)
 async def _(event: MessageEvent):
     for command_start in get_driver().config.command_start:
         if event.get_plaintext().startswith(f"{command_start}sudo"):
-            if event.get_user_id() in list(config.sudoers):
+            file = open("data/blacklist.json", "r")
+            file_data = file.read()
+            file.close()
+            blacklist = json.loads(file_data)
+            if (
+                event.get_user_id() in list(config.sudoers)
+                and event.get_plaintext().strip().split(" ")[1] not in blacklist["data"]
+            ):
                 event.user_id = event.user_id = int(
                     event.get_plaintext().strip().split(" ")[1]
                 )
