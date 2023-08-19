@@ -3,6 +3,8 @@ from nonebot.message import event_preprocessor
 from nonebot.adapters.onebot.v11 import MessageEvent
 from .config import Config
 
+config = Config.parse_obj(get_driver().config)
+
 
 @event_preprocessor
 async def _(event: MessageEvent):
