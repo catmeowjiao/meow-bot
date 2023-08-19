@@ -9,6 +9,7 @@ sixlast = 0
 
 @reply.handle()
 async def _(bot: Bot, event: MessageEvent):
+    global sixlast
     content = str(event.get_message())
     if "我是傻逼" in content:
         await reply.finish("傻逼")
