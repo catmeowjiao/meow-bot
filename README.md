@@ -2,6 +2,7 @@
 
 插件来源:
 
+- blacklist: 自己编写
 - bracket: 基于https://github.com/noneplugin/nonebot-plugin-bracket
 - broadcast: 自己编写
 - callapi: 基于https://github.com/lgc-NB2Dev/nonebot-plugin-callapi
