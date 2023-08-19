@@ -20,8 +20,8 @@ blacklist = on_command("blacklist", priority=2, block=True)
 @event_preprocessor
 async def _(event: MessageEvent):
     print(type(blacklist["data"]))
-    if event.get_user_id() in blacklist["data"]:
-        raise IgnoredException("该用户被禁用")
+    #if event.get_user_id() in blacklist["data"]:
+        #raise IgnoredException("该用户被禁用")
 
 
 @ban.handle()
