@@ -1,8 +1,10 @@
+import time
 import random
 from nonebot import on_message
 from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent
 
 reply = on_message(priority=1, block=False)
+sixlast = 0
 
 
 @reply.handle()
@@ -10,7 +12,8 @@ async def _(bot: Bot, event: MessageEvent):
     content = str(event.get_message())
     if "我是傻逼" in content:
         await reply.finish("傻逼")
-    elif content == "6":
+    elif content == "6" and time.time() - sixlast > 10:
+        sixlast = time.time()
         await reply.finish("6")
     elif (
         content == "典"
