@@ -1,6 +1,7 @@
 from nonebot import get_driver
 from nonebot.message import event_preprocessor
 from nonebot.adapters.onebot.v11 import MessageEvent
+from nonebot.log import logger
 from .config import Config
 
 config = Config.parse_obj(get_driver().config)
