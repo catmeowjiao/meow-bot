@@ -271,19 +271,25 @@ async def _(event: MessageEvent):
 
 
 @query_points.handle()
-async def _(msg: Message = CommandArg()):
-    user_id = str(str(msg).split(" ")[0])
-    if user_id == "3493487882":
-        await query_points.finish(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数"))
+async def _(event: MessageEvent):
+    if event.get_user_id() == "3493487882":
+        await query_points.finish(
+            MessageSegment.text("3493487882\n剩余点数: 0\n无限卡: 持有(到期时间: 永久)")
+        )
     else:
         file = open("data/chatgpt.json", "r")
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
-        if user_id not in file_dict.keys():
-            file_dict[user_id] = 1000
+        if event.get_user_id() not in file_dict.keys():
+            file_dict[event.get_user_id()] = 1000
         await query_points.send(
-            MessageSegment.text("被查询用户的剩余点数为: " + str(file_dict[user_id]))
+            MessageSegment.text(
+                event.get_user_id()
+                + "\n剩余点数: "
+                + str(file_dict[event.get_user_id()])
+                + "\n无限卡: 未持有"
+            )
         )
         file_data = json.dumps(file_dict)
         file = open("data/chatgpt.json", "w")
