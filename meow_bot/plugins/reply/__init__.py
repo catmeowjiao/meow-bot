@@ -10,6 +10,8 @@ async def _(bot: Bot, event: MessageEvent):
     content = str(event.get_message())
     if "我是傻逼" in content:
         await reply.finish("傻逼")
+    elif content == "6":
+        await reply.finish("6")
     elif (
         content == "典"
         or content == "孝"
