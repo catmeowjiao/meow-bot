@@ -14,6 +14,7 @@ file.close()
 blacklist = json.loads(file_data)
 ban = on_command("ban", permission=SUPERUSER, priority=2, block=True)
 unban = on_command("unban", permission=SUPERUSER, priority=2, block=True)
+blacklist = on_command("blacklist", priority=2, block=True)
 
 
 @event_preprocessor
@@ -48,3 +49,8 @@ async def _(msg: Message = CommandArg()):
     file.write(file_data)
     file.close()
     await unban.finish("解除封禁成功!")
+
+
+@blacklist.handle()
+async def _(bot: Bot):
+    await ban.finish(str(blacklist["data"]))
