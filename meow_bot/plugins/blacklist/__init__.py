@@ -54,4 +54,4 @@ async def _(msg: Message = CommandArg()):
 
 @blacklist.handle()
 async def _(bot: Bot):
-    await ban.finish(str(blacklist["data"]))
+    await blacklist.finish(str(blacklist["data"]))
