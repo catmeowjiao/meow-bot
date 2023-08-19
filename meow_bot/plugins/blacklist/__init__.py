@@ -17,7 +17,7 @@ unban = on_command("unban", permission=SUPERUSER, priority=2, block=True)
 
 @event_preprocessor
 async def _(event: MessageEvent):
-    if event.get_user_id() in blacklist:
+    if event.get_user_id() in blacklist["data"]:
         raise IgnoredException("该用户被禁用")
 
 
@@ -26,8 +26,8 @@ async def _(msg: Message = CommandArg()):
     content = msg.extract_plain_text()
     if content == "3493487882":
         await ban.finish("超管不可封禁")
-    if content not in blacklist:
-        blacklist.append(content)
+    if content not in blacklist["data"]:
+        blacklist["data"].append(content)
     file = open("data/blacklist.json", "w")
     file_data = json.dumps(blacklist)
     file.write(file_data)
@@ -40,8 +40,8 @@ async def _(msg: Message = CommandArg()):
     content = msg.extract_plain_text()
     if content == "3493487882":
         await unban.finish("超管无需解除封禁")
-    if content in blacklist:
-        blacklist.remove(content)
+    if content in blacklist["data"]:
+        blacklist["data"].remove(content)
     file = open("data/blacklist.json", "w")
     file_data = json.dumps(blacklist)
     file.write(file_data)

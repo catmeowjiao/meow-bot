@@ -30,7 +30,7 @@ if not os.path.isdir("data/broadcast.json"):
     file.close()
 if not os.path.isdir("data/blacklist.json"):
     file = open("data/blacklist.json", "w")
-    file.write("{}")
+    file.write('{"data":[]}')
     file.close()
 
 if __name__ == "__main__":
