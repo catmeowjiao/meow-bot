@@ -12,7 +12,6 @@ file = open("data/blacklist.json", "r")
 file_data = file.read()
 file.close()
 blacklist = json.loads(file_data)
-print(blacklist["data"])
 ban = on_command("ban", permission=SUPERUSER, priority=2, block=True)
 unban = on_command("unban", permission=SUPERUSER, priority=2, block=True)
 blacklist = on_command("blacklist", priority=2, block=True)
@@ -20,6 +19,7 @@ blacklist = on_command("blacklist", priority=2, block=True)
 
 @event_preprocessor
 async def _(event: MessageEvent):
+    print(type(blacklist["data"]))
     if event.get_user_id() in blacklist["data"]:
         raise IgnoredException("该用户被禁用")
 
