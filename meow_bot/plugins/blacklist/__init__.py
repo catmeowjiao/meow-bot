@@ -11,6 +11,7 @@ file = open("data/blacklist.json", "r")
 file_data = file.read()
 file.close()
 blacklist = json.loads(file_data)
+print(blacklist)
 ban = on_command("ban", permission=SUPERUSER, priority=2, block=True)
 unban = on_command("unban", permission=SUPERUSER, priority=2, block=True)
 
