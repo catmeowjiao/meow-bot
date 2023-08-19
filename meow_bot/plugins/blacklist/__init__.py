@@ -14,14 +14,13 @@ file.close()
 blacklist = json.loads(file_data)
 ban = on_command("ban", permission=SUPERUSER, priority=2, block=True)
 unban = on_command("unban", permission=SUPERUSER, priority=2, block=True)
-blacklist = on_command("blacklist", priority=2, block=True)
+banlist = on_command("blacklist", priority=2, block=True)
 
 
 @event_preprocessor
 async def _(event: MessageEvent):
-    print(type(blacklist["data"]))
-    #if event.get_user_id() in blacklist["data"]:
-        #raise IgnoredException("该用户被禁用")
+    if event.get_user_id() in blacklist["data"]:
+        raise IgnoredException("该用户被禁用")
 
 
 @ban.handle()
@@ -52,6 +51,6 @@ async def _(msg: Message = CommandArg()):
     await unban.finish("解除封禁成功!")
 
 
-@blacklist.handle()
+@banlist.handle()
 async def _(bot: Bot):
-    await blacklist.finish(str(blacklist["data"]))
+    await banlist.finish(str(blacklist["data"]))
