@@ -38,6 +38,8 @@ async def _(bot: Bot, event: MessageEvent):
         if num == 0:
             await reply.finish("六字真言?在我这里不管用!")
     else:
+        print(last)
+        print(laststr)
         if laststr == content and time.time() - last <= 10:
             laststr = content
             last = time.time()
