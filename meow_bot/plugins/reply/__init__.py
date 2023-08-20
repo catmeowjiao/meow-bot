@@ -5,6 +5,7 @@ from nonebot.adapters.onebot.v11 import Bot, Message, GroupMessageEvent
 
 reply = on_message(priority=1, block=False)
 lastcache = {}
+sixcache = {}
 
 
 @reply.handle()
@@ -14,9 +15,15 @@ async def _(bot: Bot, event: GroupMessageEvent):
     content = str(event.get_message())
     if "我是傻逼" in content:
         await reply.finish("傻逼")
-    elif content == "6" and time.time() - sixlast > 10:
-        sixlast = time.time()
-        await reply.finish("6")
+    elif content == "6":
+        if (
+            event.get_group_id() in sixcache.keys()
+            and time.time() - sixcache[event.get_group_id()] > 10
+        ):
+            sixcache[event.get_group_id()] = time.time()
+            await reply.finish("6")
+        else:
+            sixcache[event.get_group_id()] = time.time()
     elif (
         content == "典"
         or content == "孝"
