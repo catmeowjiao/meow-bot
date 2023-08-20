@@ -6,7 +6,7 @@ from nonebot.params import CommandArg
 from nonebot.permission import SUPERUSER
 from nonebot.adapters.onebot.v11 import Message, MessageEvent
 
-buy_ticket = on_command("ticketbuy", block=True, priority=2)
+buy_ticket = on_command("ticket", block=True, priority=2)
 
 
 @buy_ticket.handle()
@@ -28,7 +28,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
     res = random.randint(0, random.randint(500, 1000))
     file_dict[event.get_user_id()] += res
     await buy_ticket.finish(
-        f"您开出了{res}点, 您的剩余点数为: {file_dict[event.get_user_id()]}点"
+        f"您花费100点购买了彩票, 开出了{res}点, 您的剩余点数为: {file_dict[event.get_user_id()]}点"
     )
     file_data = json.dumps(file_dict)
     file = open("data/chatgpt.json", "w")
