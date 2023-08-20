@@ -2,6 +2,7 @@
 
 插件来源:
 
+- atall: 自己编写
 - blacklist: 自己编写
 - bracket: 基于https://github.com/noneplugin/nonebot-plugin-bracket
 - broadcast: 自己编写
