@@ -18,11 +18,10 @@ async def _(bot: Bot, event: GroupMessageEvent):
     elif content == "6":
         if event.group_id not in sixcache.keys():
             sixcache[event.group_id] = 0
-        if (time.time() - sixcache[event.group_id] > 10
-        ):
+        if time.time() - sixcache[event.group_id] > 10:
             sixcache[event.group_id] = time.time()
             await reply.finish("6")
-            
+
     elif (
         content == "典"
         or content == "孝"
@@ -48,7 +47,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
             and content == lastcache[event.group_id]["content"]
             and time.time() - lastcache[event.group_id]["time"] <= 10
         ):
-            lastcache[event.group_id] = {"content": content, "time": time.time()}
+            del lastcache[event.group_id]
             await reply.finish(content)
         else:
             lastcache[event.group_id] = {"content": content, "time": time.time()}
