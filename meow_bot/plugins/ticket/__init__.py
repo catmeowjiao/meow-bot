@@ -14,7 +14,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
     if event.get_user_id() == "3493487882":
         await buy_ticket.send("购买成功! 本次购买不消耗点数, 正在开奖...")
         res = random.randint(0, random.randint(500, 1000))
-        await buy_ticket.finish("您开出了" + res + "点, 您有无限卡, 因此不发放点数")
+        await buy_ticket.finish(f"您开出了{res}点, 您有无限卡, 因此不发放点数")
     file = open("data/chatgpt.json", "r")
     file_data = file.read()
     file.close()
@@ -28,7 +28,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
     res = random.randint(0, random.randint(500, 1000))
     file_dict[event.get_user_id()] += res
     await buy_ticket.finish(
-        "您开出了" + res + "点, 您的剩余点数为: " + file_dict[event.get_user_id()] + "点"
+        f"您开出了{res}点, 您的剩余点数为: {file_dict[event.get_user_id()]}点"
     )
     file_data = json.dumps(file_dict)
     file = open("data/chatgpt.json", "w")
