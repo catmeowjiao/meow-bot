@@ -16,14 +16,13 @@ async def _(bot: Bot, event: GroupMessageEvent):
     if "我是傻逼" in content:
         await reply.finish("傻逼")
     elif content == "6":
-        if (
-            event.group_id in sixcache.keys()
-            and time.time() - sixcache[event.group_id] > 10
+        if event.group_id not in sixcache.keys():
+            sixcache[event.group_id] = 0
+        if (time.time() - sixcache[event.group_id] > 10
         ):
             sixcache[event.group_id] = time.time()
             await reply.finish("6")
-        else:
-            sixcache[event.group_id] = time.time()
+            
     elif (
         content == "典"
         or content == "孝"
