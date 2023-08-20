@@ -1,15 +1,14 @@
 import time
 import random
 from nonebot import on_message
-from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent
+from nonebot.adapters.onebot.v11 import Bot, Message, GroupMessageEvent
 
 reply = on_message(priority=1, block=False)
-last = 0
-laststr = ""
+lastcache = {}
 
 
 @reply.handle()
-async def _(bot: Bot, event: MessageEvent):
+async def _(bot: Bot, event: GroupMessageEvent):
     global last
     global laststr
     content = str(event.get_message())
@@ -38,10 +37,12 @@ async def _(bot: Bot, event: MessageEvent):
         if num == 0:
             await reply.finish("六字真言?在我这里不管用!")
     else:
-        if laststr == content and time.time() - last <= 10:
-            laststr = content
-            last = time.time()
+        if (
+            event.get_group_id() in lastcache.keys()
+            and content == lastcache[event.get_group_id()]["content"]
+            and time.time() - lastcache[event.get_group_id()]["time"] <= 10
+        ):
+            lastcache[event.get_group_id()] = {"content": content, "time": time.time()}
             await reply.finish(content)
         else:
-            laststr = content
-            last = time.time()
+            lastcache[event.get_group_id()] = {"content": content, "time": time.time()}
