@@ -12,5 +12,5 @@ async def _(bot: Bot, event: MessageEvent):
     res = ""
     for user in user_list:
         res += f"[CQ:at,qq={user}]"
-    print(ress)
+    print(res)
     await bot.send_group_msg(group_id=event.group_id, message=res)
