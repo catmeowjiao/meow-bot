@@ -1,7 +1,12 @@
 import nonebot
 import random
 from nonebot import on_command
-from nonebot.adapters.onebot.v11 import Bot, MessageEvent,GroupMessageEvent, PrivateMessageEvent
+from nonebot.adapters.onebot.v11 import (
+    Bot,
+    MessageEvent,
+    GroupMessageEvent,
+    PrivateMessageEvent,
+)
 
 help = on_command("help", aliases={"menu"}, block=True, priority=2)
 
@@ -10,7 +15,7 @@ help = on_command("help", aliases={"menu"}, block=True, priority=2)
 async def _(bot: Bot, event: MessageEvent):
     if event.get_user_id() == "3493487882":
         await help.send("你好, meowjiao!")
-    messages=[
+    messages = [
         {
             "type": "node",
             "data": {
@@ -20,7 +25,11 @@ async def _(bot: Bot, event: MessageEvent):
             },
         }
     ]
-    if isinstance(event,GroupMessageEvent):
-        await bot.call_api("send_group_forward_msg",group_id=event.group_id,messages=messages)
+    if isinstance(event, GroupMessageEvent):
+        await bot.call_api(
+            "send_group_forward_msg", group_id=event.group_id, messages=messages
+        )
     else:
-        await bot.call_api("send_private_forward_msg",user_id=event.user_id,messages=messages)
+        await bot.call_api(
+            "send_private_forward_msg", user_id=event.user_id, messages=messages
+        )
