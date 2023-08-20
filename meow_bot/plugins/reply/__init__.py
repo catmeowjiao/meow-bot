@@ -17,13 +17,13 @@ async def _(bot: Bot, event: GroupMessageEvent):
         await reply.finish("傻逼")
     elif content == "6":
         if (
-            event.get_group_id() in sixcache.keys()
-            and time.time() - sixcache[event.get_group_id()] > 10
+            event.group_id in sixcache.keys()
+            and time.time() - sixcache[event.group_id] > 10
         ):
-            sixcache[event.get_group_id()] = time.time()
+            sixcache[event.group_id] = time.time()
             await reply.finish("6")
         else:
-            sixcache[event.get_group_id()] = time.time()
+            sixcache[event.group_id] = time.time()
     elif (
         content == "典"
         or content == "孝"
@@ -45,11 +45,11 @@ async def _(bot: Bot, event: GroupMessageEvent):
             await reply.finish("六字真言?在我这里不管用!")
     else:
         if (
-            event.get_group_id() in lastcache.keys()
-            and content == lastcache[event.get_group_id()]["content"]
-            and time.time() - lastcache[event.get_group_id()]["time"] <= 10
+            event.group_id in lastcache.keys()
+            and content == lastcache[event.group_id]["content"]
+            and time.time() - lastcache[event.group_id]["time"] <= 10
         ):
-            lastcache[event.get_group_id()] = {"content": content, "time": time.time()}
+            lastcache[event.group_id] = {"content": content, "time": time.time()}
             await reply.finish(content)
         else:
-            lastcache[event.get_group_id()] = {"content": content, "time": time.time()}
+            lastcache[event.group_id] = {"content": content, "time": time.time()}
