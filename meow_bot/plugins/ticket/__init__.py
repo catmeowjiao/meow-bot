@@ -27,10 +27,10 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
     await buy_ticket.send("购买成功! 本次消耗100点数, 正在开奖...")
     res = random.randint(0, random.randint(500, 1000))
     file_dict[event.get_user_id()] += res
-    await buy_ticket.finish(
-        f"您花费100点购买了彩票, 开出了{res}点, 您的剩余点数为: {file_dict[event.get_user_id()]}点"
-    )
     file_data = json.dumps(file_dict)
     file = open("data/chatgpt.json", "w")
     file.write(file_data)
     file.close()
+    await buy_ticket.finish(
+        f"您花费100点购买了彩票, 开出了{res}点, 您的剩余点数为: {file_dict[event.get_user_id()]}点"
+    )
