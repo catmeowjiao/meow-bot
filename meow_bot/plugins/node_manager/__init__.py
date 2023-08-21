@@ -16,8 +16,8 @@ async def _(event: GroupMessageEvent):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    print(file_dict)
     if event.group_id not in file_dict.keys():
+        print("bug")
         file_dict[event.group_id] = "yes"
         file_data = json.dumps(file_dict)
         file = open("data/node.json", "w")
