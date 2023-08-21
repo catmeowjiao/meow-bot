@@ -7,9 +7,9 @@ from nonebot.permission import SUPERUSER
 broadcast = on_command("bc", permission=SUPERUSER, priority=2, block=True)
 broadcastlock = on_command("bcl", permission=SUPERUSER, priority=2, block=True)
 broadcastunlock = on_command("bcul", permission=SUPERUSER, priority=2, block=True)
-broadcastuser = on_command("bcu", permission=SUPERUSER, priority=2, block=True)
-broadcastlockuser = on_command("bclu", permission=SUPERUSER, priority=2, block=True)
-broadcastunlockuser = on_command("bculu", permission=SUPERUSER, priority=2, block=True)
+broadcastuser = on_command("ubc", permission=SUPERUSER, priority=2, block=True)
+broadcastlockuser = on_command("ubcl", permission=SUPERUSER, priority=2, block=True)
+broadcastunlockuser = on_command("ubcul", permission=SUPERUSER, priority=2, block=True)
 
 
 @broadcast.handle()
