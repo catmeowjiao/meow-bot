@@ -35,6 +35,11 @@ if not os.path.isfile("data/blacklist.json"):
     file.write('{"data":[]}')
     file.close()
 
+if not os.path.isfile("data/node.json"):
+    file = open("data/node.json", "w")
+    file.write("{}")
+    file.close()
+
 nonebot.load_from_toml("pyproject.toml")
 
 if __name__ == "__main__":
