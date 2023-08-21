@@ -1,6 +1,7 @@
 import json
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent
+from nonebot.exception import IgnoredException
 from nonebot.params import CommandArg
 from nonebot.permission import SUPERUSER
 
@@ -22,7 +23,7 @@ async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
     file.close()
     file_dict = json.loads(file_data)
     if not msg:
-        return None
+        raise IgnoredException("广播消息为空")
     group_list = await bot.get_group_list()
     for group in group_list:
         if group["group_id"] not in file_dict["data"]:
@@ -79,7 +80,7 @@ async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
     file.close()
     file_dict = json.loads(file_data)
     if not msg:
-        return None
+        raise IgnoredException("广播消息为空")
     user_list = await bot.get_friend_list()
     for user in user_list:
         if user["user_id"] not in file_dict["data"]:

@@ -1,6 +1,7 @@
 import json
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent, GroupMessageEvent
+from nonebot.message import event_preprocessor
 from nonebot.exception import IgnoredException
 from nonebot.permission import SUPERUSER
 
