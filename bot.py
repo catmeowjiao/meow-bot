@@ -25,6 +25,11 @@ if not os.path.isfile("data/broadcast.json"):
     file.write('{"data":[]}')
     file.close()
 
+if not os.path.isfile("data/broadcastuser.json"):
+    file = open("data/broadcast.jsonuser", "w")
+    file.write('{"data":[]}')
+    file.close()
+
 if not os.path.isfile("data/blacklist.json"):
     file = open("data/blacklist.json", "w")
     file.write('{"data":[]}')

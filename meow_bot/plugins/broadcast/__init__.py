@@ -7,6 +7,9 @@ from nonebot.permission import SUPERUSER
 broadcast = on_command("bc", permission=SUPERUSER, priority=2, block=True)
 broadcastlock = on_command("bcl", permission=SUPERUSER, priority=2, block=True)
 broadcastunlock = on_command("bcul", permission=SUPERUSER, priority=2, block=True)
+broadcastuser = on_command("bcu", permission=SUPERUSER, priority=2, block=True)
+broadcastlockuser = on_command("bclu", permission=SUPERUSER, priority=2, block=True)
+broadcastunlockuser = on_command("bculu", permission=SUPERUSER, priority=2, block=True)
 
 
 @broadcast.handle()
@@ -53,5 +56,51 @@ async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
         file_dict["data"].remove(id)
     file_data = json.dumps(file_dict)
     file = open("data/broadcast.json", "w")
+    file.write(file_data)
+    await broadcastunlock.finish("启用成功!")
+
+
+@broadcastuser.handle()
+async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
+    msg = arg.extract_plain_text().strip()
+    file = open("data/broadcastuser.json", "r")
+    file_data = file.read()
+    file.close()
+    file_dict = json.loads(file_data)
+    if not msg:
+        return None
+    user_list = await bot.get_friend_list()
+    for user in user_list:
+        if user["user_id"] not in file_dict["data"]:
+            await bot.send_private_msg(user_id=user["user_id"], message="[超管广播] " + msg)
+    await broadcast.finish("发送成功!")
+
+
+@broadcastlockuser.handle()
+async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
+    id = int(arg.extract_plain_text().strip())
+    file = open("data/broadcastuser.json", "r")
+    file_data = file.read()
+    file.close()
+    file_dict = json.loads(file_data)
+    if id not in file_dict["data"]:
+        file_dict["data"].append(id)
+    file_data = json.dumps(file_dict)
+    file = open("data/broadcastuser.json", "w")
+    file.write(file_data)
+    await broadcastlock.finish("禁用成功!")
+
+
+@broadcastunlockuser.handle()
+async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
+    id = int(arg.extract_plain_text().strip())
+    file = open("data/broadcastuser.json", "r")
+    file_data = file.read()
+    file.close()
+    file_dict = json.loads(file_data)
+    if id in file_dict["data"]:
+        file_dict["data"].remove(id)
+    file_data = json.dumps(file_dict)
+    file = open("data/broadcastuser.json", "w")
     file.write(file_data)
     await broadcastunlock.finish("启用成功!")
