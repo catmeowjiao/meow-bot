@@ -17,7 +17,7 @@ async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
     file.close()
     file_dict = json.loads(file_data)
     if not msg:
-        await broadcast.finish("请在指令后输入需要广播的消息")
+        return None
     group_list = await bot.get_group_list()
     for group in group_list:
         if group["group_id"] not in file_dict["data"]:
