@@ -54,6 +54,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file.close()
     file_dict = json.loads(file_data)
     file_dict[event.group_id] = "no"
+    print(file_dict)
     file_data = json.dumps(file_dict)
     file = open("../meow-bot/data/node.json", "w")
     file.write(file_data)
