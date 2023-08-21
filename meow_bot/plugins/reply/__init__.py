@@ -43,6 +43,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
         if num == 0:
             await reply.finish("六字真言?在我这里不管用!")
     else:
+        if event.group_id not in lastsendtime.keys():
+            lastsendtime[event.group_id] = 0
         if (
             event.group_id in lastcache.keys()
             and content == lastcache[event.group_id]["content"]
