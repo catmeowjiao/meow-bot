@@ -5,6 +5,7 @@ from nonebot.adapters.onebot.v11 import Bot, Message, GroupMessageEvent
 
 reply = on_message(priority=1, block=False)
 lastcache = {}
+lastsendtime = {}
 sixcache = {}
 
 
@@ -18,7 +19,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
     elif content == "6":
         if event.group_id not in sixcache.keys():
             sixcache[event.group_id] = 0
-        if time.time() - sixcache[event.group_id] > 5:
+        if time.time() - sixcache[event.group_id] > 7:
             sixcache[event.group_id] = time.time()
             await reply.finish("6")
 
@@ -46,8 +47,12 @@ async def _(bot: Bot, event: GroupMessageEvent):
             event.group_id in lastcache.keys()
             and content == lastcache[event.group_id]["content"]
             and time.time() - lastcache[event.group_id]["time"] <= 10
+            and time.time() - lastsendtime[event.group_id] > 7
         ):
             del lastcache[event.group_id]
-            await reply.finish(content)
+            lastsendtime[event.group_id] = time.time()
+            await bot.call_api(
+                "send_group_msg", group_id=event.group_id, message=content
+            )
         else:
             lastcache[event.group_id] = {"content": content, "time": time.time()}
