@@ -22,22 +22,22 @@ if not os.path.isfile("data/sign.json"):
 
 if not os.path.isfile("data/broadcast.json"):
     file = open("data/broadcast.json", "w")
-    file.write('{"data":[]}')
+    file.write('{"data": []}')
     file.close()
 
 if not os.path.isfile("data/broadcastuser.json"):
     file = open("data/broadcastuser.json", "w")
-    file.write('{"data":[]}')
+    file.write('{"data": []}')
     file.close()
 
 if not os.path.isfile("data/blacklist.json"):
     file = open("data/blacklist.json", "w")
-    file.write('{"data":[]}')
+    file.write('{"data": []}')
     file.close()
 
 if not os.path.isfile("data/node.json"):
     file = open("data/node.json", "w")
-    file.write("{}")
+    file.write("{"data": []}")
     file.close()
 
 nonebot.load_from_toml("pyproject.toml")

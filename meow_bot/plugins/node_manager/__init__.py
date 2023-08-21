@@ -16,14 +16,7 @@ async def _(event: GroupMessageEvent):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    if event.group_id not in file_dict.keys():
-        print("bug")
-        file_dict[event.group_id] = "yes"
-        file_data = json.dumps(file_dict)
-        file = open("data/node.json", "w")
-        file.write(file_data)
-        file.close()
-    if file_dict[event.group_id] == "no":
+    if event.group_id in file_dict["data"]:
         raise IgnoredException("该群未启用此节点")
 
 
@@ -33,7 +26,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    file_dict[event.group_id] = "yes"
+    if event.group_id not in file_dict["data"]:
+        file_dict["data"].append(event.group_id)
     file_data = json.dumps(file_dict)
     file = open("../meow-bot/data/node.json", "w")
     file.write(file_data)
@@ -42,7 +36,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    file_dict[event.group_id] = "no"
+    if event.group_id in file_dict["data"]:
+        file_dict["data"].remove(event.group_id)
     file_data = json.dumps(file_dict)
     file = open("../meow-bot-2/data/node.json", "w")
     file.write(file_data)
@@ -55,8 +50,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    file_dict[event.group_id] = "no"
-    print(file_dict)
+    if event.group_id not in file_dict["data"]:
+        file_dict["data"].append(event.group_id)
     file_data = json.dumps(file_dict)
     file = open("../meow-bot/data/node.json", "w")
     file.write(file_data)
@@ -65,7 +60,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    file_dict[event.group_id] = "yes"
+    if event.group_id in file_dict["data"]:
+        file_dict["data"].remove(event.group_id)
     file_data = json.dumps(file_dict)
     file = open("../meow-bot-2/data/node.json", "w")
     file.write(file_data)
@@ -78,7 +74,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    file_dict[event.group_id] = "yes"
+    if event.group_id in file_dict["data"]:
+        file_dict["data"].remove(event.group_id)
     file_data = json.dumps(file_dict)
     file = open("../meow-bot/data/node.json", "w")
     file.write(file_data)
@@ -87,7 +84,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    file_dict[event.group_id] = "yes"
+    if event.group_id in file_dict["data"]:
+        file_dict["data"].remove(event.group_id)
     file_data = json.dumps(file_dict)
     file = open("../meow-bot-2/data/node.json", "w")
     file.write(file_data)
