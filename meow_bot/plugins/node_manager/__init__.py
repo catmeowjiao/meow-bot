@@ -11,11 +11,12 @@ enableall = on_command("ea", permission=SUPERUSER, priority=2, block=True)
 
 
 @event_preprocessor
-async def _(event: MessageEvent):
+async def _(event: GroupMessageEvent):
     file = open("data/node.json", "r")
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
+    print(file_dict)
     if event.group_id not in file_dict.keys():
         file_dict[event.group_id] = "yes"
         file_data = json.dumps(file_dict)
@@ -42,6 +43,26 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file.close()
     file_dict = json.loads(file_data)
     file_dict[event.group_id] = "no"
+    file_data = json.dumps(file_dict)
+    file = open("../meow-bot-2/data/node.json", "w")
+    file.write(file_data)
+    file.close()
+@switchdevelop.handle()
+async def _(bot: Bot, event: GroupMessageEvent):
+    file = open("../meow-bot/data/node.json", "r")
+    file_data = file.read()
+    file.close()
+    file_dict = json.loads(file_data)
+    file_dict[event.group_id] = "no"
+    file_data = json.dumps(file_dict)
+    file = open("../meow-bot/data/node.json", "w")
+    file.write(file_data)
+    file.close()
+    file = open("../meow-bot-2/data/node.json", "r")
+    file_data = file.read()
+    file.close()
+    file_dict = json.loads(file_data)
+    file_dict[event.group_id] = "yes"
     file_data = json.dumps(file_dict)
     file = open("../meow-bot-2/data/node.json", "w")
     file.write(file_data)
