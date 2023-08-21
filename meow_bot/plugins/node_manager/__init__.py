@@ -23,7 +23,7 @@ async def _(event: GroupMessageEvent):
         file = open("data/node.json", "w")
         file.write(file_data)
         file.close()
-    if file_dict == "no":
+    if file_dict[event.group_id] == "no":
         raise IgnoredException("该群未启用此节点")
 
 
@@ -47,6 +47,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file = open("../meow-bot-2/data/node.json", "w")
     file.write(file_data)
     file.close()
+
+
 @switchdevelop.handle()
 async def _(bot: Bot, event: GroupMessageEvent):
     file = open("../meow-bot/data/node.json", "r")
