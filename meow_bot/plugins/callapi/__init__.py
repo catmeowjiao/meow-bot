@@ -1,6 +1,14 @@
-from nonebot.plugin import PluginMetadata, require
+import nonebot
+import random
+from nonebot import on_command
+from nonebot.adapters.onebot.v11 import Bot, MessageEvent
+from nonebot.permission import SUPERUSER
 
-require("nonebot_plugin_saa")
+callapi = on_command("callapi", permission=SUPERUSER, block=True, priority=2)
 
-from .__main__ import HELP_TEXT  # noqa: E402
-from .config import ConfigModel  # noqa: E402
+
+@callapi.handle()
+async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
+    args = str(msg).split(" ")
+    res = str(await bot.call_api(api=args[0], **json.loads(" ".join(args[1:]))))
+    await callapi.finish(res)

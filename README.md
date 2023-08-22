@@ -6,7 +6,7 @@
 - blacklist: 自己编写
 - bracket: 基于https://github.com/noneplugin/nonebot-plugin-bracket
 - broadcast: 自己编写
-- callapi: 基于https://github.com/lgc-NB2Dev/nonebot-plugin-callapi
+- callapi: 自己编写
 - chatgpt: 基于https://github.com/Alpaca4610/nonebot_plugin_chatgpt_turbo
 - code: 基于https://github.com/yzyyz1387/nonebot_plugin_code
 - help: 自己编写
