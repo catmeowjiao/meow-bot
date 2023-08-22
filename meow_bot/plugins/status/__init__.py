@@ -17,8 +17,16 @@ async def _():
     runtime = time.time()
 
 
+def format_time(seconds):
+    d = int(seconds / 86400)
+    h = int(seconds / 3600) % 24
+    m = int(seconds / 60) % 60
+    s = seconds % 60
+    return f"{d}天{h}时{m}分{s}秒"
+
+
 @status.handle()
 async def _(bot: Bot, event: MessageEvent):
     await status.finish(
-        f"CPU占用: {psutil.cpu_percent()}%\n内存使用量: {psutil.virtual_memory().percent}%\n运行时间: {time.time() - runtime}秒\n系统类型: {sys.platform}"
+        f"CPU占用: {psutil.cpu_percent()}%\n内存使用量: {psutil.virtual_memory().percent}%\n运行时间: {format_time(time.time() - runtime)}\n系统类型: {sys.platform}"
     )
