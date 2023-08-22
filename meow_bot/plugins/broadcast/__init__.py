@@ -22,8 +22,6 @@ async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    if not msg:
-        raise IgnoredException("广播消息为空")
     group_list = await bot.get_group_list()
     for group in group_list:
         if group["group_id"] not in file_dict["data"]:
@@ -79,8 +77,6 @@ async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
-    if not msg:
-        raise IgnoredException("广播消息为空")
     user_list = await bot.get_friend_list()
     for user in user_list:
         if user["user_id"] not in file_dict["data"]:
