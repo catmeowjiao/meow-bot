@@ -367,6 +367,8 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
         file.write(file_data)
         file.close()
     else:
+        if number < 0:
+            await pay_points.finish("不被允许的转账数量")
         file = open("data/chatgpt.json", "r")
         file_data = file.read()
         file.close()
@@ -379,7 +381,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
         file_dict[event.get_user_id()] -= number
         await pay_points.send(
             MessageSegment.text(
-                "充值成功!被转账用户的剩余点数为: "
+                "转账成功!被转账用户的剩余点数为: "
                 + str(file_dict[user_id])
                 + ", 您剩余的点数为: "
                 + str(file_dict[event.get_user_id()])
