@@ -373,7 +373,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
-        if file_dict[event.get_user_id()] < number:
+        if number != 0 and file_dict[event.get_user_id()] < number:
             await pay_points.finish("您的剩余点数不足, 无法转账")
         if user_id not in file_dict.keys():
             file_dict[user_id] = 1000

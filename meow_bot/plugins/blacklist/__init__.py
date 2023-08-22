@@ -17,12 +17,6 @@ unban = on_command("unban", permission=SUPERUSER, priority=2, block=True)
 banlist = on_command("blacklist", priority=2, block=True)
 
 
-@event_preprocessor
-async def _(event: MessageEvent):
-    if event.get_user_id() in blacklist["data"]:
-        raise IgnoredException("该用户被禁用")
-
-
 @ban.handle()
 async def _(msg: Message = CommandArg()):
     content = msg.extract_plain_text()

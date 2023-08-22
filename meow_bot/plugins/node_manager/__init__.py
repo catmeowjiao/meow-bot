@@ -10,16 +10,6 @@ switchdevelop = on_command("sd", permission=SUPERUSER, priority=2, block=True)
 enableall = on_command("ea", permission=SUPERUSER, priority=2, block=True)
 
 
-@event_preprocessor
-async def _(event: GroupMessageEvent):
-    file = open("data/node.json", "r")
-    file_data = file.read()
-    file.close()
-    file_dict = json.loads(file_data)
-    if event.group_id in file_dict["data"]:
-        raise IgnoredException("该群未启用此节点")
-
-
 @switchmain.handle()
 async def _(bot: Bot, event: GroupMessageEvent):
     file = open("../meow-bot/data/node.json", "r")
