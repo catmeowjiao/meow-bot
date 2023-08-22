@@ -42,6 +42,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file = open("../meow-bot-2/data/node.json", "w")
     file.write(file_data)
     file.close()
+    await switchmain.finish("切换成功!")
 
 
 @switchdevelop.handle()
@@ -66,6 +67,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file = open("../meow-bot-2/data/node.json", "w")
     file.write(file_data)
     file.close()
+    await switchmain.finish("切换成功!")
 
 
 @enableall.handle()
@@ -90,3 +92,4 @@ async def _(bot: Bot, event: GroupMessageEvent):
     file = open("../meow-bot-2/data/node.json", "w")
     file.write(file_data)
     file.close()
+    await switchmain.finish("启用成功!")
