@@ -21,7 +21,7 @@ def format_time(seconds):
     d = int(seconds / 86400)
     h = int(seconds / 3600) % 24
     m = int(seconds / 60) % 60
-    s = seconds % 60
+    s = int(seconds) % 60
     return f"{d}天{h}时{m}分{s}秒"
 
 
