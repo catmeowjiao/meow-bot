@@ -28,5 +28,5 @@ def format_time(seconds):
 @status.handle()
 async def _(bot: Bot, event: MessageEvent):
     await status.finish(
-        f"CPU占用: {psutil.cpu_percent()}%\n内存使用量: {psutil.virtual_memory().percent}%\n运行时间: {format_time(time.time() - runtime)}\n系统类型: {sys.platform}"
+        f"CPU占用: {psutil.cpu_percent()}%\n内存使用量: {psutil.virtual_memory().percent}%\n运行时间: {format_time(time.time() - runtime)}\n系统启动时间: {format_time(time.time() - psutil.boot_time())}\n系统类型: {sys.platform}"
     )
