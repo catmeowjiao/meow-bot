@@ -2,12 +2,13 @@ import nonebot
 import psutil
 import time
 import sys
-from nonebot import on_command
+from nonebot import on_command, get_driver
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 
-status = on_command("status", block=True, priority=2)
-
+driver = get_driver()
 runtime = time.time()
+
+status = on_command("status", block=True, priority=2)
 
 
 @driver.on_startup
