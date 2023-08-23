@@ -12,7 +12,7 @@ config = Config.parse_obj(get_driver().config)
 
 
 @event_preprocessor
-async def _(bot:Bot, event: MessageEvent):
+async def _(bot: Bot, event: MessageEvent):
     sudo = False
     for command_start in get_driver().config.command_start:
         if event.get_plaintext().startswith(f"{command_start}sudo"):
@@ -25,8 +25,8 @@ async def _(bot:Bot, event: MessageEvent):
                 )
     if isinstance(event, GroupMessageEvent):
         for command_start in get_driver().config.command_start:
-            if event.get_plaintext().startswith(f"{command_start}sm"):
-                if event.get_user_id() == "3493487882":
+            if event.user_id == "3493487882":
+                if event.get_plaintext().startswith(f"{command_start}sm"):
                     file = open("../meow-bot/data/node.json", "r")
                     file_data = file.read()
                     file.close()
@@ -47,7 +47,51 @@ async def _(bot:Bot, event: MessageEvent):
                     file = open("../meow-bot-2/data/node.json", "w")
                     file.write(file_data)
                     file.close()
-                    await bot.send_group_msg(group_id=event.group_id,message="切换成功")
+                    await bot.send_group_msg(group_id=event.group_id, message="切换成功")
+                if event.get_plaintext().startswith(f"{command_start}sd"):
+                    file = open("../meow-bot/data/node.json", "r")
+                    file_data = file.read()
+                    file.close()
+                    file_dict = json.loads(file_data)
+                    if event.group_id not in file_dict["data"]:
+                        file_dict["data"].append(event.group_id)
+                    file = open("../meow-bot/data/node.json", "w")
+                    file.write(file_data)
+                    file.close()
+                    file = open("../meow-bot-2/data/node.json", "r")
+                    file_data = file.read()
+                    file.close()
+                    file_dict = json.loads(file_data)
+                    if event.group_id in file_dict["data"]:
+                        file_dict["data"].remove(event.group_id)
+                    file_data = json.dumps(file_dict)
+                    file_data = json.dumps(file_dict)
+                    file = open("../meow-bot-2/data/node.json", "w")
+                    file.write(file_data)
+                    file.close()
+                    await bot.send_group_msg(group_id=event.group_id, message="切换成功")
+                if event.get_plaintext().startswith(f"{command_start}ea"):
+                    file = open("../meow-bot/data/node.json", "r")
+                    file_data = file.read()
+                    file.close()
+                    file_dict = json.loads(file_data)
+                    if event.group_id in file_dict["data"]:
+                        file_dict["data"].remove(event.group_id)
+                    file = open("../meow-bot/data/node.json", "w")
+                    file.write(file_data)
+                    file.close()
+                    file = open("../meow-bot-2/data/node.json", "r")
+                    file_data = file.read()
+                    file.close()
+                    file_dict = json.loads(file_data)
+                    if event.group_id in file_dict["data"]:
+                        file_dict["data"].remove(event.group_id)
+                    file_data = json.dumps(file_dict)
+                    file_data = json.dumps(file_dict)
+                    file = open("../meow-bot-2/data/node.json", "w")
+                    file.write(file_data)
+                    file.close()
+                    await bot.send_group_msg(group_id=event.group_id, message="切换成功")
         file = open("data/node.json", "r")
         file_data = file.read()
         file.close()
