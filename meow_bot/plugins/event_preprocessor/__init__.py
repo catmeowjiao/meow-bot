@@ -47,7 +47,7 @@ async def _(bot:Bot, event: MessageEvent):
                     file = open("../meow-bot-2/data/node.json", "w")
                     file.write(file_data)
                     file.close()
-                    await bot.send_group_msg("group_id"=event.group_id,"message"="切换成功")
+                    await bot.send_group_msg(group_id=event.group_id,message="切换成功")
         file = open("data/node.json", "r")
         file_data = file.read()
         file.close()
