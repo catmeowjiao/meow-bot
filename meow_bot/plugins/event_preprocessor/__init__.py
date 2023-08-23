@@ -25,7 +25,7 @@ async def _(bot: Bot, event: MessageEvent):
                 )
     if isinstance(event, GroupMessageEvent):
         for command_start in get_driver().config.command_start:
-            if event.user_id == "3493487882":
+            if event.get_user_id() == "3493487882":
                 if event.get_plaintext().startswith(f"{command_start}sm"):
                     file = open("../meow-bot/data/node.json", "r")
                     file_data = file.read()
