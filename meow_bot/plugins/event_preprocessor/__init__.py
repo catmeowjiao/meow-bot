@@ -48,13 +48,14 @@ async def _(bot: Bot, event: MessageEvent):
                     file.write(file_data)
                     file.close()
                     await bot.send_group_msg(group_id=event.group_id, message="切换成功")
-                if event.get_plaintext().startswith(f"{command_start}sd"):
+                elif event.get_plaintext().startswith(f"{command_start}sd"):
                     file = open("../meow-bot/data/node.json", "r")
                     file_data = file.read()
                     file.close()
                     file_dict = json.loads(file_data)
                     if event.group_id not in file_dict["data"]:
                         file_dict["data"].append(event.group_id)
+                    file_data = json.dumps(file_dict)
                     file = open("../meow-bot/data/node.json", "w")
                     file.write(file_data)
                     file.close()
@@ -65,18 +66,18 @@ async def _(bot: Bot, event: MessageEvent):
                     if event.group_id in file_dict["data"]:
                         file_dict["data"].remove(event.group_id)
                     file_data = json.dumps(file_dict)
-                    file_data = json.dumps(file_dict)
                     file = open("../meow-bot-2/data/node.json", "w")
                     file.write(file_data)
                     file.close()
                     await bot.send_group_msg(group_id=event.group_id, message="切换成功")
-                if event.get_plaintext().startswith(f"{command_start}ea"):
+                elif event.get_plaintext().startswith(f"{command_start}ea"):
                     file = open("../meow-bot/data/node.json", "r")
                     file_data = file.read()
                     file.close()
                     file_dict = json.loads(file_data)
                     if event.group_id in file_dict["data"]:
                         file_dict["data"].remove(event.group_id)
+                    file_data = json.dumps(file_dict)
                     file = open("../meow-bot/data/node.json", "w")
                     file.write(file_data)
                     file.close()
@@ -86,7 +87,6 @@ async def _(bot: Bot, event: MessageEvent):
                     file_dict = json.loads(file_data)
                     if event.group_id in file_dict["data"]:
                         file_dict["data"].remove(event.group_id)
-                    file_data = json.dumps(file_dict)
                     file_data = json.dumps(file_dict)
                     file = open("../meow-bot-2/data/node.json", "w")
                     file.write(file_data)
