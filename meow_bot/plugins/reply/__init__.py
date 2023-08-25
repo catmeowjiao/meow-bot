@@ -42,6 +42,8 @@ async def _(bot: Bot, event: GroupMessageEvent):
         num = random.randint(0, 1)
         if num == 0:
             await reply.finish("六字真言?在我这里不管用!")
+    elif content == "114514":
+        await reply.finish("1145141919810")
     else:
         if event.group_id not in lastsendtime.keys():
             lastsendtime[event.group_id] = 0
