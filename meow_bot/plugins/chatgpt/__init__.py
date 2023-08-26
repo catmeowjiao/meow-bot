@@ -37,7 +37,7 @@ session = {}
 encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
 
 # 带上下文的聊天
-chat_record = on_command("chat", block=True, priority=2)
+chat_record = on_command("ask", block=True, priority=2)
 
 # 不带上下文的聊天
 chat_request = on_command("", rule=to_me(), block=True, priority=3)
