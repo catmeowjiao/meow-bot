@@ -22,7 +22,6 @@ async def _(bot: Bot, event: GroupMessageEvent):
         if time.time() - sixcache[event.group_id] > 7:
             sixcache[event.group_id] = time.time()
             await reply.finish("6")
-
     elif (
         content == "典"
         or content == "孝"
@@ -39,11 +38,9 @@ async def _(bot: Bot, event: GroupMessageEvent):
         or content == "对"
         or "原神怎么你了" in content
     ):
-        num = random.randint(0, 1)
-        if num == 0:
-            await reply.finish("六字真言?在我这里不管用!")
+        await reply.finish("六字真言?在我这里不管用!")
     elif content == "114514":
-        await reply.finish("1145141919810")
+        await reply.finish("114514")
     else:
         if event.group_id not in lastsendtime.keys():
             lastsendtime[event.group_id] = 0
