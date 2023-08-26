@@ -92,7 +92,7 @@ async def _(bot: Bot, event: MessageEvent):
                     file.write(file_data)
                     file.close()
                     await bot.send_group_msg(group_id=event.group_id, message="启用成功")
-                elif event.get_plaintext().startswith(f"{command_start}sm"):
+                elif event.get_plaintext().startswith(f"{command_start}da"):
                     file = open("../meow-bot/data/node.json", "r")
                     file_data = file.read()
                     file.close()
