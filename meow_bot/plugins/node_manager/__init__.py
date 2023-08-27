@@ -1,10 +1,17 @@
 import nonebot
+import json
 from nonebot import on_command
-from nonebot.adapters.onebot.v11 import Bot,Message,MessageEvent,GroupMessageEvent,PrivateMessageEvent
+from nonebot.adapters.onebot.v11 import (
+    Bot,
+    Message,
+    MessageEvent,
+    GroupMessageEvent,
+    PrivateMessageEvent,
+)
 from nonebot.params import CommandArg
 from nonebot.permission import SUPERUSER
 
-switchmain = on_command("sm", permission=SUPERUSER,block=True,priority=2)
+switchmain = on_command("sm", permission=SUPERUSER, block=True, priority=2)
 switchdevelop = on_command("sd", permission=SUPERUSER, block=True, priority=2)
 enableall = on_command("ea", permission=SUPERUSER, block=True, priority=2)
 disableall = on_command("da", permission=SUPERUSER, block=True, priority=2)
