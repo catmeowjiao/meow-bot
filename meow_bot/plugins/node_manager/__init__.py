@@ -151,7 +151,7 @@ async def _(bot: Bot, event: MessageEvent):
         file = open("../meow-bot-2/data/node.json", "w")
         file.write(file_data)
         file.close()
-        await switchmainall.finish("切换成功")
+    await switchmainall.finish("切换成功")
 
 
 @switchdevelopall.handle()
@@ -179,7 +179,7 @@ async def _(bot: Bot, event: MessageEvent):
         file = open("../meow-bot-2/data/node.json", "w")
         file.write(file_data)
         file.close()
-        await switchdevelopall.finish("切换成功")
+    await switchdevelopall.finish("切换成功")
 
 
 @enableallall.handle()
@@ -207,7 +207,7 @@ async def _(bot: Bot, event: MessageEvent):
         file = open("../meow-bot-2/data/node.json", "w")
         file.write(file_data)
         file.close()
-        await enableallall.finish("启用成功")
+    await enableallall.finish("启用成功")
 
 
 @disableallall.handle()
@@ -235,4 +235,4 @@ async def _(bot: Bot, event: MessageEvent):
         file = open("../meow-bot-2/data/node.json", "w")
         file.write(file_data)
         file.close()
-        await disableallall.finish("禁用成功")
+    await disableallall.finish("禁用成功")
