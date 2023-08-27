@@ -128,9 +128,10 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
 @switchmainall.handle()
 async def _(bot: Bot, event: MessageEvent):
     group_list = await bot.get_group_list()
+    for i in group_list:
+        await switchmainall.send(group)
     for group in group_list:
         group_id = group["group_id"]
-        print(group)
         file = open("../meow-bot/data/node.json", "r")
         file_data = file.read()
         file.close()
