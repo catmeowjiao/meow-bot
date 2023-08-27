@@ -23,6 +23,7 @@ async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
     file.close()
     file_dict = json.loads(file_data)
     group_list = await bot.get_group_list()
+    print(group_list)
     for group in group_list:
         print(group["group_id"])
         if group["group_id"] not in file_dict["data"]:
