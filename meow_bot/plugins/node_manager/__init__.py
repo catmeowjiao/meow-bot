@@ -23,7 +23,7 @@ disableallall = on_command("daa", permission=SUPERUSER, block=True, priority=2)
 
 @switchmain.handle()
 async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
-    group_id = int(msg)
+    group_id = msg.extract_plain_text()
     file = open("../meow-bot/data/node.json", "r")
     file_data = file.read()
     file.close()
@@ -49,7 +49,7 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
 
 @switchdevelop.handle()
 async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
-    group_id = int(msg)
+    group_id = msg.extract_plain_text()
     file = open("../meow-bot/data/node.json", "r")
     file_data = file.read()
     file.close()
@@ -75,7 +75,7 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
 
 @enableall.handle()
 async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
-    group_id = int(msg)
+    group_id = msg.extract_plain_text()
     file = open("../meow-bot/data/node.json", "r")
     file_data = file.read()
     file.close()
@@ -101,7 +101,7 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
 
 @disableall.handle()
 async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
-    group_id = int(msg)
+    group_id = msg.extract_plain_text()
     file = open("../meow-bot/data/node.json", "r")
     file_data = file.read()
     file.close()
