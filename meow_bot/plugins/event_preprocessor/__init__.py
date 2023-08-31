@@ -28,7 +28,7 @@ async def _(bot: Bot, event: MessageEvent):
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
-        if event.get_group_id() not in file_dict["data"]:
+        if event.group_id not in file_dict["data"]:
             raise IgnoredException("该群未启用此节点")
     if not sudo:
         file = open("data/blacklist.json", "r")
