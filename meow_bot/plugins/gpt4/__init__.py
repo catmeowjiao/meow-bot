@@ -106,7 +106,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
         await chat_record.finish(str(error), at_sender=True)
     input_token = len(encoding.encode(content))
     output_token = len(encoding.encode(res))
-    total = input_token + output_token
+    total = (input_token + output_token) * 2
     if event.get_user_id() == "3493487882":
         await chat_record.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
     else:
@@ -150,7 +150,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
         await chat_request.finish(str(error), at_sender=True)
     input_token = len(encoding.encode(content))
     output_token = len(encoding.encode(res))
-    total = input_token + output_token
+    total = (input_token + output_token) * 2
     if event.get_user_id() == "3493487882":
         await chat_request.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
     else:
@@ -201,7 +201,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
             await reset.finish(str(error), at_sender=True)
         input_token = len(encoding.encode(content))
         output_token = len(encoding.encode(res))
-        total = input_token + output_token
+        total = (input_token + output_token) * 2
         if event.get_user_id() == "3493487882":
             await reset.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
         else:
@@ -249,7 +249,7 @@ async def _(event: MessageEvent):
         await reset_dev.finish(str(error), at_sender=True)
     input_token = len(encoding.encode(content))
     output_token = len(encoding.encode(res))
-    total = input_token + output_token
+    total = (input_token + output_token) * 2
     if event.get_user_id() == "3493487882":
         await reset_dev.send(MessageSegment.text("本次使用消耗" + str(total) + "点数, 不扣费."))
     else:

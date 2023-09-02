@@ -51,4 +51,13 @@ async def _(bot: Bot, event: MessageEvent):
     file2 = open("data/chatgpt.json", "w")
     file2.write(file2_data)
     file2.close()
-    await sign.finish("签到成功! 您获得了" + str(points) + "普通点数, " + str(points2) + "GPT4点数, 您的剩余普通点数为: " + str(cur) + ", 您的剩余GPT4点数为: " + str(cur2))
+    await sign.finish(
+        "签到成功! 您获得了"
+        + str(points)
+        + "普通点数, "
+        + str(points2)
+        + "GPT4点数, 您的剩余普通点数为: "
+        + str(cur)
+        + ", 您的剩余GPT4点数为: "
+        + str(cur2)
+    )
