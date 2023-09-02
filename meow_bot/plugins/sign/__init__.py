@@ -40,7 +40,7 @@ async def _(bot: Bot, event: MessageEvent):
     points = random.randint(500, 700)
     points2 = random.randint(100, 300)
     file1_dict[event.get_user_id()] += points
-    file2_dict[event.get_user_id()] += points
+    file2_dict[event.get_user_id()] += points2
     cur = file1_dict[event.get_user_id()]
     cur2 = file2_dict[event.get_user_id()]
     file1_data = json.dumps(file1_dict)
