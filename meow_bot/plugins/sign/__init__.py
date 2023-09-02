@@ -32,7 +32,7 @@ async def _(bot: Bot, event: MessageEvent):
     if event.get_user_id() not in file1_dict.keys():
         file1_dict[event.get_user_id()] = 1000
     file2 = open("data/gpt4.json")
-    file2_data = file1.read()
+    file2_data = file2.read()
     file2.close()
     file2_dict = json.loads(file2_data)
     if event.get_user_id() not in file2_dict.keys():
@@ -47,8 +47,8 @@ async def _(bot: Bot, event: MessageEvent):
     file1 = open("data/chatgpt.json", "w")
     file1.write(file1_data)
     file1.close()
-    file2_data = json.dumps(file1_dict)
-    file2 = open("data/chatgpt.json", "w")
+    file2_data = json.dumps(file2_dict)
+    file2 = open("data/gpt4.json", "w")
     file2.write(file2_data)
     file2.close()
     await sign.finish(
