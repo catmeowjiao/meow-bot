@@ -42,7 +42,7 @@ async def _(bot: Bot, event: MessageEvent):
     file1_dict[event.get_user_id()] += points
     file2_dict[event.get_user_id()] += points
     cur = file1_dict[event.get_user_id()]
-    cur2 = file1_dict[event.get_user_id()]
+    cur2 = file2_dict[event.get_user_id()]
     file1_data = json.dumps(file1_dict)
     file1 = open("data/chatgpt.json", "w")
     file1.write(file1_data)
