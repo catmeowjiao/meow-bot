@@ -34,31 +34,31 @@ model_id = plugin_config.openai_model_name
 max_limit = plugin_config.openai_max_history_limit
 public = plugin_config.chatgpt_turbo_public
 session = {}
-encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+encoding = tiktoken.encoding_for_model("gpt-4")
 
 # 带上下文的聊天
-chat_record = on_command("chat", block=True, priority=2)
+chat_record = on_command("chat4", block=True, priority=2)
 
 # 不带上下文的聊天
-chat_request = on_command("ask", block=True, priority=2)
+chat_request = on_command("ask4", block=True, priority=2)
 
 # 清除历史记录
-reset = on_command("reset", block=True, priority=2)
+reset = on_command("reset4", block=True, priority=2)
 
 # 重置历史记录并设置为开发者模式
-reset_dev = on_command("reset_dev", block=True, priority=2)
+reset_dev = on_command("reset_dev4", block=True, priority=2)
 
 # 获取剩余点数
-query_points = on_command("query", block=True, priority=2)
+query_points = on_command("query4", block=True, priority=2)
 
 # 点数更改
-change_points = on_command("change", permission=SUPERUSER, block=True, priority=2)
+change_points = on_command("change4", permission=SUPERUSER, block=True, priority=2)
 
 # 点数充值
-buy_points = on_command("buy", permission=SUPERUSER, block=True, priority=2)
+buy_points = on_command("buy4", permission=SUPERUSER, block=True, priority=2)
 
 # 转账
-pay_points = on_command("pay", block=True, priority=2)
+pay_points = on_command("pay4", block=True, priority=2)
 
 
 # 带记忆的聊天
@@ -78,7 +78,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
     content = msg.extract_plain_text()
     if content == "" or content is None:
         await chat_record.finish(MessageSegment.text("内容不能为空!"), at_sender=True)
-    file = open("data/chatgpt.json", "r")
+    file = open("data/gpt4.json", "r")
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
@@ -120,7 +120,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
             )
         )
     file_data = json.dumps(file_dict)
-    file = open("data/chatgpt.json", "w")
+    file = open("data/gpt4.json", "w")
     file.write(file_data)
     file.close()
     await chat_record.finish(MessageSegment.text(res), at_sender=True)
@@ -132,7 +132,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
     content = msg.extract_plain_text()
     if isinstance(event, PrivateMessageEvent) and not plugin_config.enable_private_chat:
         chat_request.finish("对不起，私聊暂不支持此功能。")
-    file = open("data/chatgpt.json", "r")
+    file = open("data/gpt4.json", "r")
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
@@ -164,7 +164,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
             )
         )
     file_data = json.dumps(file_dict)
-    file = open("data/chatgpt.json", "w")
+    file = open("data/gpt4.json", "w")
     file.write(file_data)
     file.close()
     await chat_request.finish(MessageSegment.text(res), at_sender=True)
@@ -183,7 +183,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
         session[session_id] = ChatSession(
             api_key=api_key, model_id=model_id, max_limit=max_limit
         )
-        file = open("data/chatgpt.json", "r")
+        file = open("data/gpt4.json", "r")
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
@@ -215,7 +215,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
                 )
             )
         file_data = json.dumps(file_dict)
-        file = open("data/chatgpt.json", "w")
+        file = open("data/gpt4.json", "w")
         file.write(file_data)
         file.close()
         await reset.send(MessageSegment.text(res), at_sender=True)
@@ -231,7 +231,7 @@ async def _(event: MessageEvent):
     session[session_id] = ChatSession(
         api_key=api_key, model_id=model_id, max_limit=max_limit
     )
-    file = open("data/chatgpt.json", "r")
+    file = open("data/gpt4.json", "r")
     file_data = file.read()
     file.close()
     file_dict = json.loads(file_data)
@@ -263,7 +263,7 @@ async def _(event: MessageEvent):
             )
         )
     file_data = json.dumps(file_dict)
-    file = open("data/chatgpt.json", "w")
+    file = open("data/gpt4.json", "w")
     file.write(file_data)
     file.close()
     await reset_dev.send(MessageSegment.text(res), at_sender=True)
@@ -277,7 +277,7 @@ async def _(event: MessageEvent):
             MessageSegment.text("3493487882\n剩余点数: 0\n无限卡: 持有(到期时间: 永久)")
         )
     else:
-        file = open("data/chatgpt.json", "r")
+        file = open("data/gpt4.json", "r")
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
@@ -292,7 +292,7 @@ async def _(event: MessageEvent):
             )
         )
         file_data = json.dumps(file_dict)
-        file = open("data/chatgpt.json", "w")
+        file = open("data/gpt4.json", "w")
         file.write(file_data)
         file.close()
 
@@ -306,7 +306,7 @@ async def _(msg: Message = CommandArg()):
             MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数, 无需更改点数")
         )
     else:
-        file = open("data/chatgpt.json", "r")
+        file = open("data/gpt4.json", "r")
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
@@ -317,7 +317,7 @@ async def _(msg: Message = CommandArg()):
             MessageSegment.text("更改成功!被更改用户的剩余点数为: " + str(file_dict[user_id]))
         )
         file_data = json.dumps(file_dict)
-        file = open("data/chatgpt.json", "w")
+        file = open("data/gpt4.json", "w")
         file.write(file_data)
         file.close()
 
@@ -329,7 +329,7 @@ async def _(msg: Message = CommandArg()):
     if user_id == "3493487882":
         await buy_points.finish(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数, 无需充值"))
     else:
-        file = open("data/chatgpt.json", "r")
+        file = open("data/gpt4.json", "r")
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
@@ -340,7 +340,7 @@ async def _(msg: Message = CommandArg()):
             MessageSegment.text("充值成功!被充值用户的剩余点数为: " + str(file_dict[user_id]))
         )
         file_data = json.dumps(file_dict)
-        file = open("data/chatgpt.json", "w")
+        file = open("data/gpt4.json", "w")
         file.write(file_data)
         file.close()
 
@@ -352,7 +352,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
     if user_id == "3493487882":
         await pay_points.finish(MessageSegment.text("用户meowjiao有无限卡, 使用时不消耗点数, 无需转账"))
     elif event.get_user_id() == "3493487882":
-        file = open("data/chatgpt.json", "r")
+        file = open("data/gpt4.json", "r")
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
@@ -363,13 +363,13 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
             MessageSegment.text("转账成功!被转账用户的剩余点数为: " + str(file_dict[user_id]))
         )
         file_data = json.dumps(file_dict)
-        file = open("data/chatgpt.json", "w")
+        file = open("data/gpt4.json", "w")
         file.write(file_data)
         file.close()
     else:
         if number < 0:
             await pay_points.finish("不被允许的转账数量")
-        file = open("data/chatgpt.json", "r")
+        file = open("data/gpt4.json", "r")
         file_data = file.read()
         file.close()
         file_dict = json.loads(file_data)
@@ -388,7 +388,7 @@ async def _(event: MessageEvent, msg: Message = CommandArg()):
             )
         )
         file_data = json.dumps(file_dict)
-        file = open("data/chatgpt.json", "w")
+        file = open("data/gpt4.json", "w")
         file.write(file_data)
         file.close()
 

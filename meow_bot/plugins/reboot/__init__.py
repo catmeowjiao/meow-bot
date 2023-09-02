@@ -12,6 +12,6 @@ poweroff = on_command(
 @poweroff.handle()
 async def _(bot: Bot):
     await poweroff.send("已发送重启指令")
-    file = open("reboot.py", "w")
+    file = open("data/reboot.py", "w")
     file.write(str(time.time()))
     file.close()
