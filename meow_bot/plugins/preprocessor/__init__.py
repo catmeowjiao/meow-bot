@@ -2,10 +2,16 @@ import json
 from argparse import Namespace
 from nonebot.matcher import Matcher
 from nonebot.params import ShellCommandArgs
-from nonebot.message import run_preprocessor,event_preprocessor
+from nonebot.message import run_preprocessor, event_preprocessor
 from nonebot.exception import IgnoredException
 from nonebot.plugin import PluginMetadata, on_shell_command, get_loaded_plugins
-from nonebot.adapters.onebot.v11 import Bot, Event, Message,MessageEvent, GroupMessageEvent
+from nonebot.adapters.onebot.v11 import (
+    Bot,
+    Event,
+    Message,
+    MessageEvent,
+    GroupMessageEvent,
+)
 from nonebot.permission import SUPERUSER
 from nonebot import get_driver
 from .handle import Handle
@@ -18,6 +24,8 @@ npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 
 
 sudo = False
+
+
 @event_preprocessor
 async def _(bot: Bot, event: MessageEvent):
     global sudo
@@ -45,7 +53,6 @@ async def _(bot: Bot, event: MessageEvent):
         blacklist = json.loads(file_data)
         if event.get_user_id() in blacklist["data"]:
             raise IgnoredException("该用户被禁用")
-
 
 
 # 在 Matcher 运行前检测其是否启用
