@@ -24,13 +24,13 @@ async def _(matcher: Matcher, bot: Bot, event: Event):
         "group": [event.group_id] if hasattr(event, "group_id") else [],  # type: ignore
     }
 
-    if (
+    '''if (
         hasattr(event, "user_id")
         and not hasattr(event, "group_id")
         and str(event.user_id) in bot.config.superusers  # type: ignore
     ):
         conv["user"] = []
-        conv["group"] = []
+        conv["group"] = []'''
 
     plugin_manager.update_plugin(
         {

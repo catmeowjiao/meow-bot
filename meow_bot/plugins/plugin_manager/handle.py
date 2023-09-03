@@ -75,8 +75,8 @@ class Handle:
             plugin = plugin_manager.get_plugin(conv=args.conv, perm=6)
 
         if args.conv["group"]:
-            if not args.is_admin and not args.is_superuser:
-                return "管理群插件需要群管理员权限！"
+            if not args.is_superuser:
+                return "管理群插件需要超级用户权限！"
             args.conv["user"] = []
 
         if args.all:
@@ -121,8 +121,8 @@ class Handle:
             plugin = plugin_manager.get_plugin(conv=args.conv, perm=6)
 
         if args.conv["group"]:
-            if not args.is_admin and not args.is_superuser:
-                return "管理群插件需要群管理员权限！"
+            if not args.is_superuser:
+                return "管理群插件需要超级用户权限！"
             args.conv["user"] = []
 
         if args.all:

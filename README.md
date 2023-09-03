@@ -9,7 +9,7 @@
 - callapi: 自己编写
 - chatgpt: 基于https://github.com/Alpaca4610/nonebot_plugin_chatgpt_turbo
 - code: 基于https://github.com/yzyyz1387/nonebot_plugin_code
-- event_preprocessor: 自己编写
+- preprocessor: 集成blacklist, node_manager, plugin_manager和https://github.com/This-is-XiaoDeng/nonebot-plugin-sudo的部分/全部代码
 - gpt4: 基于https://github.com/Alpaca4610/nonebot_plugin_chatgpt_turbo
 - help: 自己编写
 - jrrp: 自己编写
