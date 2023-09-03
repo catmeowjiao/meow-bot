@@ -51,23 +51,22 @@ async def _(bot: Bot, event: MessageEvent):
 @run_preprocessor
 async def _(matcher: Matcher, bot: Bot, event: Event):
     if sudo:
-        raise IgnoredException("sudo模式下无需检测插件是否启用")
-    plugin = matcher.plugin_name
+        plugin = matcher.plugin_name
 
-    conv = {
-        "user": [event.user_id] if hasattr(event, "user_id") else [],  # type: ignore
-        "group": [event.group_id] if hasattr(event, "group_id") else [],  # type: ignore
-    }
-
-    plugin_manager.update_plugin(
-        {
-            str(p.name): p.name != "nonebot_plugin_manager" and bool(p.matcher)
-            for p in get_loaded_plugins()
+        conv = {
+            "user": [event.user_id] if hasattr(event, "user_id") else [],  # type: ignore
+            "group": [event.group_id] if hasattr(event, "group_id") else [],  # type: ignore
         }
-    )
 
-    if plugin and not plugin_manager.get_plugin(conv=conv, perm=1)[plugin]:
-        raise IgnoredException(f"Nonebot Plugin Manager has blocked {plugin} !")
+        plugin_manager.update_plugin(
+            {
+                str(p.name): p.name != "nonebot_plugin_manager" and bool(p.matcher)
+                for p in get_loaded_plugins()
+            }
+        )
+
+        if plugin and not plugin_manager.get_plugin(conv=conv, perm=1)[plugin]:
+            raise IgnoredException(f"Nonebot Plugin Manager has blocked {plugin} !")
 
 
 @npm.handle()
