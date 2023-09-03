@@ -16,8 +16,6 @@ class Handle:
         else:
             if args.conv["group"]:
                 args.conv["user"] = []
-            '''elif args.is_superuser:
-                args.conv["user"] = []'''
 
             if args.user or args.group:
                 if args.is_superuser:

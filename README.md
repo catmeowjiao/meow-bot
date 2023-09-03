@@ -14,7 +14,6 @@
 - help: 自己编写
 - jrrp: 自己编写
 - node_manager: 自己编写
-- plugin_manager: 基于https://github.com/nonepkg/nonebot-plugin-manager
 - poweroff: 自己编写
 - preview: 基于https://github.com/ITCraftDevelopmentTeam/XDbot2/blob/master/src/plugins/Core/plugins/preview.py
 - reboot: 自己编写
