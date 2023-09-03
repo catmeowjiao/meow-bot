@@ -21,6 +21,7 @@ sudo = False
 @event_preprocessor
 async def _(bot: Bot, event: MessageEvent):
     global sudo
+    sudo = False
     for command_start in get_driver().config.command_start:
         if event.get_plaintext().startswith(f"{command_start}sudo"):
             if event.get_user_id() in list(config.sudoers):
