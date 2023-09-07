@@ -45,7 +45,7 @@ async def _(bot: Bot, event: MessageEvent):
     sudo = False
     for command_start in get_driver().config.command_start:
         while event.raw_message.startswith(f"{command_start}sudo"):
-            if event.get_user_id() in list(config.superusers):
+            if event.get_user_id() in bot.config.superusers:
                 sudo=True
                 event.user_id = get_user_id(event)
                 change_message(
