@@ -25,20 +25,35 @@ npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 
 sudo = False
 
+def get_user_id(event: MessageEvent) -> int:
+    message_start = event.message[0].data["text"]
+    try:
+        return message_start.strip().split(" ")[1]
+    except IndexError:
+        return event.message[1].data["qq"]
 
+def change_message(event: MessageEvent) -> None:
+    if (tmp_message := " ".join(event.message[0].data["text"].split(" ")[2:])):
+        event.message[0].data["text"] = tmp_message
+    else:
+        event.message.pop(0)
+        event.message.pop(0)
+        event.message[0].data["text"] = event.message[0].data["text"].strip()
 @event_preprocessor
 async def _(bot: Bot, event: MessageEvent):
     global sudo
     sudo = False
     for command_start in get_driver().config.command_start:
-        if event.get_plaintext().startswith(f"{command_start}sudo"):
-            if event.get_user_id() in list(config.sudoers):
-                sudo = True
-                event.user_id = int(event.get_plaintext().strip().split(" ")[1])
-                cmd_start = command_start if config.sudo_insert_cmdstart else ""
-                event.message[0].data["text"] = cmd_start + " ".join(
-                    event.message[0].data["text"].split(" ")[2:]
+        while event.raw_message.startswith(f"{command_start}sudo"):
+            if event.get_user_id() in list(config.superusers):
+                sudo=True
+                event.user_id = get_user_id(event)
+                change_message(
+                    event
                 )
+                break
+
+
     if isinstance(event, GroupMessageEvent):
         file = open("data/node.json", "r")
         file_data = file.read()
