@@ -53,12 +53,13 @@ async def _(bot: Bot, event: GroupMessageEvent):
             del lastcache[event.group_id]
             lastsendtime[event.group_id] = time.time()
             await reply.finish(content)
-            '''await bot.call_api(
+            """await bot.call_api(
                 "send_group_msg", group_id=event.group_id, message=content
-            )'''
+            )"""
         else:
             lastcache[event.group_id] = {"content": content, "time": time.time()}
-            rand = random.randint(0,100)
+            rand = random.randint(0, 100)
             if rand == 0:
-                await reply.finish("MeowBot开源地址: https://github.com/catmeowjiao/meow-bot, 欢迎来点Star")
-                
+                await reply.finish(
+                    "MeowBot开源地址: https://github.com/catmeowjiao/meow-bot, 欢迎来点Star"
+                )
