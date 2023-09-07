@@ -58,7 +58,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
             )'''
         else:
             lastcache[event.group_id] = {"content": content, "time": time.time()}
-            rand = random.randint(0,1)
+            rand = random.randint(0,100)
             if rand == 0:
                 await reply.finish("MeowBot开源地址: https://github.com/catmeowjiao/meow-bot, 欢迎来点Star")
                 
