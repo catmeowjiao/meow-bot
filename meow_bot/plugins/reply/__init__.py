@@ -15,7 +15,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
     global laststr
     content = str(event.get_message())
     if "我是傻逼" in content:
-        await reply.finish("傻逼")
+        await reply.finish("我才是傻逼!")
     elif content == "6":
         if event.group_id not in sixcache.keys():
             sixcache[event.group_id] = 0
@@ -52,8 +52,13 @@ async def _(bot: Bot, event: GroupMessageEvent):
         ):
             del lastcache[event.group_id]
             lastsendtime[event.group_id] = time.time()
-            await bot.call_api(
+            await reply.finish(content)
+            '''await bot.call_api(
                 "send_group_msg", group_id=event.group_id, message=content
-            )
+            )'''
         else:
             lastcache[event.group_id] = {"content": content, "time": time.time()}
+            rand = random.randint(0,1)
+            if rand == 0:
+                await reply.finish("MeowBot开源地址: https://github.com/catmeowjiao/meow-bot, 欢迎来点Star")
+                
