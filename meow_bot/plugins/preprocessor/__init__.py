@@ -80,6 +80,7 @@ def change_message(event: MessageEvent, cmd_start):
 async def _(event: MessageEvent):
     if not hasattr(event, "_sudo_original_user"):
         return
+    await asyncio.sleep(0.1)
     if event.user_id in _sudo_original_user.keys():
         _sudo_original_user.pop(event.user_id)
 
