@@ -124,12 +124,12 @@ def change_message(event: MessageEvent, cmd_start) -> None:
 
 async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
     print(_sudo_original_user)
-    if (
+    '''if (
         (api == "send_msg" and data["message_type"] == "private")
         or api in ["send_private_forward_msg", "send_private_msg"]
         and data["user_id"] in _sudo_original_user.keys()
     ):
-        data["user_id"] = _sudo_original_user[data["user_id"]]._sudo_original_user
+        data["user_id"] = _sudo_original_user[data["user_id"]]._sudo_original_user'''
 
 
 @get_driver().on_bot_connect
