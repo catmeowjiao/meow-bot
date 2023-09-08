@@ -23,7 +23,7 @@ from .config import Config
 config = Config.parse_obj(get_driver().config)
 npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 
-_sudo_original_user: dict[int, MessageEvent] = {}
+'''_sudo_original_user: dict[int, MessageEvent] = {}
 
 
 
@@ -54,7 +54,7 @@ async def _(bot: Bot, event: MessageEvent):
             change_message(event, cmd_start)
             break
 
-    '''if isinstance(event, GroupMessageEvent):
+    if isinstance(event, GroupMessageEvent):
         file = open("data/node.json", "r")
         file_data = file.read()
         file.close()
@@ -67,7 +67,7 @@ async def _(bot: Bot, event: MessageEvent):
         file.close()
         blacklist = json.loads(file_data)
         if event.get_user_id() in blacklist["data"]:
-            raise IgnoredException("该用户被禁用")'''
+            raise IgnoredException("该用户被禁用")
 
 async def change_sneder_data(bot: Bot, event: MessageEvent):
     if isinstance(event, GroupMessageEvent):
@@ -131,7 +131,7 @@ async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
 
 @get_driver().on_bot_connect
 async def on_bot_connect(bot: Bot):
-    bot.on_calling_api(handle_api_call)
+    bot.on_calling_api(handle_api_call)'''
 
 
 # 在 Matcher 运行前检测其是否启用
