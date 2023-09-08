@@ -73,11 +73,12 @@ async def _(bot: Bot, event: MessageEvent):
         if event.get_user_id() in blacklist["data"]:
             raise IgnoredException("该用户被禁用")
 
+
 @Bot.on_calling_api
 async def handle_api_call(bot: Bot, api: str, data: dict[str, any]):
-    print(data)
     if api == "send_msg" and sudo and data["message_type"] == "private":
         data["user_id"] = use_sudo
+
 
 # 在 Matcher 运行前检测其是否启用
 @run_preprocessor
