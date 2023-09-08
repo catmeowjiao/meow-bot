@@ -83,6 +83,7 @@ async def sudo_postprocessor(event: MessageEvent):
     if not hasattr(event, "_sudo_original_user"):
         return
     if event.user_id in _sudo_original_user.keys():
+        await asyncio.sleep(0.1)
         _sudo_original_user.pop(event.user_id)
     
 
