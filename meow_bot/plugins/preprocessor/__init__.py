@@ -26,22 +26,20 @@ npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 _sudo_original_user: dict[int, MessageEvent] = {}
 
 
-
-
-
 @event_postprocessor
 async def sudo_postprocessor(event: MessageEvent):
     if not hasattr(event, "_sudo_original_user"):
         return
     if event.user_id in _sudo_original_user.keys():
         _sudo_original_user.pop(event.user_id)
-    
 
 
 @event_preprocessor
 async def sudo_command(event: MessageEvent, bot: Bot):
     for command_start in get_driver().config.command_start:
-        if event.raw_message.startswith(f"{command_start}sudo") and event.get_user_id() in list(config.sudoers):
+        if event.raw_message.startswith(
+            f"{command_start}sudo"
+        ) and event.get_user_id() in list(config.sudoers):
             event._sudo_original_user = event.user_id
             event.user_id = get_user_id(event)
             if event.message_type == "private":
@@ -49,10 +47,12 @@ async def sudo_command(event: MessageEvent, bot: Bot):
                     await asyncio.sleep(0.1)
                 _sudo_original_user[event.user_id] = event
             if config.sudo_replace_sender_data:
-                await change_sneder_data(bot, event)
+                await change_sender_data(bot, event)
             cmd_start = command_start if config.sudo_insert_cmdstart else ""
             change_message(event, cmd_start)
             break
+
+
 async def _(bot: Bot, event: MessageEvent):
     if isinstance(event, GroupMessageEvent):
         file = open("data/node.json", "r")
@@ -70,7 +70,7 @@ async def _(bot: Bot, event: MessageEvent):
             raise IgnoredException("该用户被禁用")
 
 
-async def change_sneder_data(bot: Bot, event: MessageEvent):
+async def change_sender_data(bot: Bot, event: MessageEvent):
     if isinstance(event, GroupMessageEvent):
         try:
             user_info = await bot.get_group_member_info(
@@ -94,9 +94,7 @@ async def change_sneder_data(bot: Bot, event: MessageEvent):
             event.sender.sex = user_info["sex"]
             event.sender.nickname = user_info["nickname"]
     else:
-        user_info = await bot.get_stranger_info(
-            user_id=event.user_id, no_cache=True
-        )
+        user_info = await bot.get_stranger_info(user_id=event.user_id, no_cache=True)
         event.sender.age = user_info["age"]
         event.sender.level = user_info["level"]
         event.sender.sex = user_info["sex"]
@@ -121,11 +119,12 @@ def change_message(event: MessageEvent, cmd_start) -> None:
             cmd_start + event.message[0].data["text"].strip()
         )
 
+
 @Bot.on_calling_api
 async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
-    if (
-        data["user_id"] in _sudo_original_user.keys() and ((api == "send_msg" and data["message_type"] == "private")
-        or api in ["send_private_forward_msg", "send_private_msg"])
+    if data["user_id"] in _sudo_original_user.keys() and (
+        (api == "send_msg" and data["message_type"] == "private")
+        or api in ["send_private_forward_msg", "send_private_msg"]
     ):
         data["user_id"] = _sudo_original_user[data["user_id"]]._sudo_original_user
 
