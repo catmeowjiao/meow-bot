@@ -124,7 +124,7 @@ async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
         or api in ["send_private_forward_msg", "send_private_msg"]
         and data["user_id"] in _sudo_original_user.keys()
     ):
-        print(_sudo_original_user[data["user_id"]]._sudo_original_user)
+        print(_sudo_original_user)
         data["user_id"] = _sudo_original_user[data["user_id"]]._sudo_original_user
 
 
