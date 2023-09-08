@@ -74,7 +74,7 @@ async def _(bot: Bot, event: MessageEvent):
             raise IgnoredException("该用户被禁用")
 
 @Bot.on_calling_api
-async def handle_api_call(bot: Bot, api: str, data: Dict[str, Any]):
+async def handle_api_call(bot: Bot, api: str, data: dict[str, Any]):
     print(data)
     if api == "send_msg" and sudo and data["message_type"] == "private":
         data["user_id"] = use_sudo
