@@ -96,6 +96,7 @@ async def _(bot: Bot, event: MessageEvent):
             if event.message_type == "private":
                 while event.user_id in _sudo_original_user.keys():
                     await asyncio.sleep(0.1)
+                print("debug")
                 _sudo_original_user[event.user_id] = event
             if config.sudo_replace_sender_data:
                 await change_sender_data(bot, event)
