@@ -23,7 +23,7 @@ from .config import Config
 config = Config.parse_obj(get_driver().config)
 npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 
-'''_sudo_original_user: dict[int, MessageEvent] = {}
+_sudo_original_user: dict[int, MessageEvent] = {}
 
 
 
@@ -39,7 +39,7 @@ async def sudo_postprocessor(event: MessageEvent):
 
 
 @event_preprocessor
-async def _(bot: Bot, event: MessageEvent):
+async def sudo_command(event: MessageEvent, bot: Bot):
     for command_start in get_driver().config.command_start:
         if event.raw_message.startswith(f"{command_start}sudo") and event.get_user_id() in list(config.sudoers):
             event._sudo_original_user = event.user_id
@@ -53,7 +53,7 @@ async def _(bot: Bot, event: MessageEvent):
             cmd_start = command_start if config.sudo_insert_cmdstart else ""
             change_message(event, cmd_start)
             break
-
+async def _(bot: Bot, event: MessageEvent):
     if isinstance(event, GroupMessageEvent):
         file = open("data/node.json", "r")
         file_data = file.read()
@@ -68,6 +68,7 @@ async def _(bot: Bot, event: MessageEvent):
         blacklist = json.loads(file_data)
         if event.get_user_id() in blacklist["data"]:
             raise IgnoredException("该用户被禁用")
+
 
 async def change_sneder_data(bot: Bot, event: MessageEvent):
     if isinstance(event, GroupMessageEvent):
@@ -120,6 +121,7 @@ def change_message(event: MessageEvent, cmd_start) -> None:
             cmd_start + event.message[0].data["text"].strip()
         )
 
+
 async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
     if (
         (api == "send_msg" and data["message_type"] == "private")
@@ -131,7 +133,7 @@ async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
 
 @get_driver().on_bot_connect
 async def on_bot_connect(bot: Bot):
-    bot.on_calling_api(handle_api_call)'''
+    bot.on_calling_api(handle_api_call)
 
 
 # 在 Matcher 运行前检测其是否启用
