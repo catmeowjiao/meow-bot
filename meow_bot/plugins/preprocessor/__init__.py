@@ -57,7 +57,7 @@ async def change_sender_data(bot: Bot, event: MessageEvent):
         event.sender.nickname = user_info["nickname"]
 
 
-def get_user_id(event: MessageEvent) -> int:
+def get_user_id(event: MessageEvent):
     message_start = event.message[0].data["text"]
     try:
         return message_start.strip().split(" ")[1]
@@ -65,7 +65,7 @@ def get_user_id(event: MessageEvent) -> int:
         return event.message[1].data["qq"]
 
 
-def change_message(event: MessageEvent, cmd_start) -> None:
+def change_message(event: MessageEvent, cmd_start):
     if tmp_message := " ".join(event.message[0].data["text"].split(" ")[2:]):
         event.message[0].data["text"] = cmd_start + tmp_message
     else:
@@ -117,15 +117,18 @@ async def _(bot: Bot, event: MessageEvent):
         if event.get_user_id() in blacklist["data"]:
             raise IgnoredException("该用户被禁用")
 
-@Bot.on_calling_api
 async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
     if (
         (api == "send_msg" and data["message_type"] == "private")
         or api in ["send_private_forward_msg", "send_private_msg"]
         and data["user_id"] in _sudo_original_user.keys()
     ):
-        print(_sudo_original_user)
         data["user_id"] = _sudo_original_user[data["user_id"]]._sudo_original_user
+
+
+@get_driver().on_bot_connect
+async def on_bot_connect(bot: Bot):
+    bot.on_calling_api(handle_api_call)
 
 
 # 在 Matcher 运行前检测其是否启用
