@@ -137,7 +137,7 @@ async def on_bot_connect(bot: Bot):
 # 在 Matcher 运行前检测其是否启用
 @run_preprocessor
 async def _(matcher: Matcher, bot: Bot, event: Event):
-    if not event.user_id in _sudo_original_user.keys():
+    if '''not event.user_id in _sudo_original_user.keys()'''True:
         plugin = matcher.plugin_name
 
         conv = {
