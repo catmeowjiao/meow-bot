@@ -118,14 +118,18 @@ async def _(bot: Bot, event: MessageEvent):
             raise IgnoredException("该用户被禁用")
 
 
-@Bot.on_calling_api
-async def handle_api_call(bot: Bot, api: str, data: dict[str, any]):
+async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
     if (
         (api == "send_msg" and data["message_type"] == "private")
         or api in ["send_private_forward_msg", "send_private_msg"]
         and data["user_id"] in _sudo_original_user.keys()
     ):
         data["user_id"] = _sudo_original_user[data["user_id"]]._sudo_original_user
+
+
+@get_driver().on_bot_connect
+async def on_bot_connect(bot: Bot):
+    bot.on_calling_api(handle_api_call)
 
 
 # 在 Matcher 运行前检测其是否启用
