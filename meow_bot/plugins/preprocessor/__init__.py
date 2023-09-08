@@ -121,21 +121,13 @@ def change_message(event: MessageEvent, cmd_start) -> None:
             cmd_start + event.message[0].data["text"].strip()
         )
 
-
+@Bot.on_calling_api
 async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
-    print(_sudo_original_user)
-    print(_sudo_original_user)
-    '''if (
-        (api == "send_msg" and data["message_type"] == "private")
-        or api in ["send_private_forward_msg", "send_private_msg"]
-        and data["user_id"] in _sudo_original_user.keys()
+    if (
+        data["user_id"] in _sudo_original_user.keys() and ((api == "send_msg" and data["message_type"] == "private")
+        or api in ["send_private_forward_msg", "send_private_msg"])
     ):
-        data["user_id"] = _sudo_original_user[data["user_id"]]._sudo_original_user'''
-
-
-@get_driver().on_bot_connect
-async def on_bot_connect(bot: Bot):
-    bot.on_calling_api(handle_api_call)
+        data["user_id"] = _sudo_original_user[data["user_id"]]._sudo_original_user
 
 
 # 在 Matcher 运行前检测其是否启用
