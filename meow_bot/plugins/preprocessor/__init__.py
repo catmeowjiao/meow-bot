@@ -1,3 +1,4 @@
+import asyncio
 import json
 from argparse import Namespace
 from nonebot.matcher import Matcher
