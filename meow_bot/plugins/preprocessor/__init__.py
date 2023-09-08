@@ -24,9 +24,10 @@ npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 
 
 sudo = False
+use_sudo = 0
 
 
-def get_user_id(event: MessageEvent) -> int:
+def get_user_id(event: MessageEvent):
     message_start = event.message[0].data["text"]
     try:
         return message_start.strip().split(" ")[1]
@@ -34,7 +35,7 @@ def get_user_id(event: MessageEvent) -> int:
         return event.message[1].data["qq"]
 
 
-def change_message(event: MessageEvent) -> None:
+def change_message(event: MessageEvent):
     if tmp_message := " ".join(event.message[0].data["text"].split(" ")[2:]):
         event.message[0].data["text"] = tmp_message
     else:
@@ -46,11 +47,13 @@ def change_message(event: MessageEvent) -> None:
 @event_preprocessor
 async def _(bot: Bot, event: MessageEvent):
     global sudo
+    global use_sudo
     sudo = False
     for command_start in get_driver().config.command_start:
         if event.raw_message.startswith(f"{command_start}sudo"):
             if event.get_user_id() in bot.config.superusers:
                 sudo = True
+                use_sudo = event.get_user_id()
                 event.user_id = get_user_id(event)
                 change_message(event)
                 break
@@ -70,6 +73,10 @@ async def _(bot: Bot, event: MessageEvent):
         if event.get_user_id() in blacklist["data"]:
             raise IgnoredException("该用户被禁用")
 
+@Bot.on_calling_api
+async def handle_api_call(bot: Bot, api: str, data: Dict[str, Any]):
+    if api == "send_msg" and sudo and data["message_type"] == "private":
+        data["user_id"] = use_sudo
 
 # 在 Matcher 运行前检测其是否启用
 @run_preprocessor
