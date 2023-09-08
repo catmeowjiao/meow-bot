@@ -76,7 +76,12 @@ async def _(bot: Bot, event: MessageEvent):
 
 @Bot.on_calling_api
 async def handle_api_call(bot: Bot, api: str, data: dict[str, any]):
-    if api == "send_msg" and sudo and data["message_type"] == "private":
+    if (
+        api == "send_msg"
+        and sudo
+        and data["message_type"] == "private"
+        or api == "send_private_forward_msg"
+    ):
         data["user_id"] = use_sudo
 
 
