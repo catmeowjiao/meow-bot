@@ -123,6 +123,7 @@ def change_message(event: MessageEvent, cmd_start) -> None:
 
 
 async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
+    print(_sudo_original_user)
     if (
         (api == "send_msg" and data["message_type"] == "private")
         or api in ["send_private_forward_msg", "send_private_msg"]
