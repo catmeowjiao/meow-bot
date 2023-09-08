@@ -25,9 +25,12 @@ async def _(bot: Bot, event: MessageEvent, arg: Message = CommandArg()):
     group_list = await bot.get_group_list()
     for group in group_list:
         if group["group_id"] not in file_dict["data"]:
-            await bot.send_group_msg(
-                group_id=group["group_id"], message="[超管广播] " + msg
-            )
+            try:
+                await bot.send_group_msg(
+                    group_id=group["group_id"], message="[超管广播] " + msg
+                )
+            except Exception:
+                pass
     await broadcast.finish("发送成功!")
 
 
