@@ -26,6 +26,49 @@ npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 _sudo_original_user: dict[int, MessageEvent] = {}
 
 
+
+
+
+@event_postprocessor
+async def sudo_postprocessor(event: MessageEvent):
+    if not hasattr(event, "_sudo_original_user"):
+        return
+    if event.user_id in _sudo_original_user.keys():
+        _sudo_original_user.pop(event.user_id)
+    
+
+
+@event_preprocessor
+async def _(bot: Bot, event: MessageEvent):
+    for command_start in get_driver().config.command_start:
+        if event.raw_message.startswith(f"{command_start}sudo") and event.get_user_id() in list(config.sudoers):
+            event._sudo_original_user = event.user_id
+            event.user_id = get_user_id(event)
+            if event.message_type == "private":
+                while event.user_id in _sudo_original_user.keys():
+                    await asyncio.sleep(0.1)
+                _sudo_original_user[event.user_id] = event
+            if config.sudo_replace_sender_data:
+                await change_sneder_data(bot, event)
+            cmd_start = command_start if config.sudo_insert_cmdstart else ""
+            change_message(event, cmd_start)
+            break
+
+    '''if isinstance(event, GroupMessageEvent):
+        file = open("data/node.json", "r")
+        file_data = file.read()
+        file.close()
+        file_dict = json.loads(file_data)
+        if event.group_id not in file_dict["data"]:
+            raise IgnoredException("该群未启用此节点")
+    if not event.user_id in _sudo_original_user.keys():
+        file = open("data/blacklist.json", "r")
+        file_data = file.read()
+        file.close()
+        blacklist = json.loads(file_data)
+        if event.get_user_id() in blacklist["data"]:
+            raise IgnoredException("该用户被禁用")'''
+
 async def change_sneder_data(bot: Bot, event: MessageEvent):
     if isinstance(event, GroupMessageEvent):
         try:
@@ -76,48 +119,6 @@ def change_message(event: MessageEvent, cmd_start) -> None:
         event.message[0].data["text"] = (
             cmd_start + event.message[0].data["text"].strip()
         )
-
-
-@event_postprocessor
-async def sudo_postprocessor(event: MessageEvent):
-    if not hasattr(event, "_sudo_original_user"):
-        return
-    if event.user_id in _sudo_original_user.keys():
-        await asyncio.sleep(0.1)
-        _sudo_original_user.pop(event.user_id)
-    
-
-
-@event_preprocessor
-async def _(bot: Bot, event: MessageEvent):
-    for command_start in get_driver().config.command_start:
-        if event.raw_message.startswith(f"{command_start}sudo") and event.get_user_id() in list(config.sudoers):
-            event._sudo_original_user = event.user_id
-            event.user_id = get_user_id(event)
-            if event.message_type == "private":
-                while event.user_id in _sudo_original_user.keys():
-                    await asyncio.sleep(0.1)
-                _sudo_original_user[event.user_id] = event
-            if config.sudo_replace_sender_data:
-                await change_sneder_data(bot, event)
-            cmd_start = command_start if config.sudo_insert_cmdstart else ""
-            change_message(event, cmd_start)
-            break
-
-    if isinstance(event, GroupMessageEvent):
-        file = open("data/node.json", "r")
-        file_data = file.read()
-        file.close()
-        file_dict = json.loads(file_data)
-        if event.group_id not in file_dict["data"]:
-            raise IgnoredException("该群未启用此节点")
-    if not event.user_id in _sudo_original_user.keys():
-        file = open("data/blacklist.json", "r")
-        file_data = file.read()
-        file.close()
-        blacklist = json.loads(file_data)
-        if event.get_user_id() in blacklist["data"]:
-            raise IgnoredException("该用户被禁用")
 
 async def handle_api_call(_bot: Bot, api: str, data: dict[str, any]):
     if (
