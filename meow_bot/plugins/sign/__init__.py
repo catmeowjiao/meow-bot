@@ -31,33 +31,11 @@ async def _(bot: Bot, event: MessageEvent):
     file1_dict = json.loads(file1_data)
     if event.get_user_id() not in file1_dict.keys():
         file1_dict[event.get_user_id()] = 1000
-    file2 = open("data/gpt4.json")
-    file2_data = file2.read()
-    file2.close()
-    file2_dict = json.loads(file2_data)
-    if event.get_user_id() not in file2_dict.keys():
-        file2_dict[event.get_user_id()] = 1000
     points = random.randint(500, 700)
-    points2 = random.randint(100, 300)
     file1_dict[event.get_user_id()] += points
-    file2_dict[event.get_user_id()] += points2
     cur = file1_dict[event.get_user_id()]
-    cur2 = file2_dict[event.get_user_id()]
     file1_data = json.dumps(file1_dict)
     file1 = open("data/chatgpt.json", "w")
     file1.write(file1_data)
     file1.close()
-    file2_data = json.dumps(file2_dict)
-    file2 = open("data/gpt4.json", "w")
-    file2.write(file2_data)
-    file2.close()
-    await sign.finish(
-        "签到成功! 您获得了"
-        + str(points)
-        + "普通点数, "
-        + str(points2)
-        + "GPT4点数, 您的剩余普通点数为: "
-        + str(cur)
-        + ", 您的剩余GPT4点数为: "
-        + str(cur2)
-    )
+    await sign.finish("签到成功! 您获得了" + str(points) + "普通点数, 您的剩余普通点数为: " + str(cur))
