@@ -10,22 +10,24 @@ class Handle:
 
         if args.store:
             if not args.is_superuser:
-                return "获取插件商店需要超级用户权限！"
-            message = "插件商店：\n"
+                return "获取插件商店需要超级用户权限!"
+            message = "插件商店:\n"
             plugin = get_store_plugin_list()
         else:
             if args.conv["group"]:
+                args.conv["user"] = []
+            elif args.is_superuser:
                 args.conv["user"] = []
 
             if args.user or args.group:
                 if args.is_superuser:
                     args.conv = {"user": args.user, "group": args.group}
                 else:
-                    return "获取指定会话的插件列表需要超级用户权限！"
+                    return "获取指定会话的插件列表需要超级用户权限!"
 
             for t in args.conv:
                 for i in args.conv[t]:
-                    message = f"{'用户' if t == 'user' else '群'} {i} 的插件列表：\n"
+                    message = f"{'用户' if t == 'user' else '群'} {i} 的插件列表:\n"
 
             plugin = plugin_manager.get_plugin(args.conv, 1)
             if not args.all:
@@ -43,13 +45,13 @@ class Handle:
     @classmethod
     def info(cls, args: Namespace) -> str:
         if not args.is_superuser:
-            return "获取插件信息需要超级用户权限！"
+            return "获取插件信息需要超级用户权限!"
         return get_plugin_info(args.plugin)
 
     @classmethod
     def chmod(cls, args: Namespace) -> str:
         if not args.is_superuser:
-            return "设置插件权限需要超级用户权限！"
+            return "设置插件权限需要超级用户权限!"
         plugin = plugin_manager.get_plugin()
 
         if args.all:
@@ -61,7 +63,7 @@ class Handle:
         result = plugin_manager.chmod_plugin(args.plugin, args.mode)
 
         return "\n".join(
-            f"插件 {p} 的权限成功设置为 {args.mode}！" if result[p] else f"插件 {p} 不存在！"
+            f"插件 {p} 的权限成功设置为 {args.mode}!" if result[p] else f"插件 {p} 不存在!"
             for p in result
         )
 
@@ -74,7 +76,7 @@ class Handle:
 
         if args.conv["group"]:
             if not args.is_superuser:
-                return "管理群插件需要超级用户权限！"
+                return "管理群插件需要超级用户权限!"
             args.conv["user"] = []
 
         if args.all:
@@ -92,7 +94,7 @@ class Handle:
             if args.is_superuser:
                 args.conv = {"user": args.user, "group": args.group}
             else:
-                return "管理指定会话的插件需要超级用户权限！"
+                return "管理指定会话的插件需要超级用户权限!"
 
         result.update(plugin_manager.block_plugin(args.plugin, args.conv))
 
@@ -101,14 +103,14 @@ class Handle:
             if args.conv[t]:
                 message += "用户 " if t == "user" else "群 "
                 message += ",".join(str(i) for i in args.conv[t])
-        message += " 中："
+        message += " 中:"
 
         for plugin, value in result.items():
             message += "\n"
             if value:
-                message += f"插件 {plugin} 禁用成功！"
+                message += f"插件 {plugin} 禁用成功!"
             else:
-                message += f"插件 {plugin} 不存在或已关闭编辑权限！"
+                message += f"插件 {plugin} 不存在或已关闭编辑权限!"
         return message
 
     @classmethod
@@ -120,7 +122,7 @@ class Handle:
 
         if args.conv["group"]:
             if not args.is_superuser:
-                return "管理群插件需要超级用户权限！"
+                return "管理群插件需要超级用户权限!"
             args.conv["user"] = []
 
         if args.all:
@@ -138,7 +140,7 @@ class Handle:
             if args.is_superuser:
                 args.conv = {"user": args.user, "group": args.group}
             else:
-                return "管理指定会话的插件需要超级用户权限！"
+                return "管理指定会话的插件需要超级用户权限!"
 
         result.update(plugin_manager.unblock_plugin(args.plugin, args.conv))
 
@@ -147,14 +149,14 @@ class Handle:
             if args.conv[t]:
                 message += "用户" if t == "user" else "群"
                 message += ",".join(str(i) for i in args.conv[t])
-        message += "中："
+        message += "中:"
 
         for plugin, value in result.items():
             message += "\n"
             if value:
-                message += f"插件 {plugin} 启用成功！"
+                message += f"插件 {plugin} 启用成功!"
             else:
-                message += f"插件 {plugin} 不存在或已关闭编辑权限！"
+                message += f"插件 {plugin} 不存在或已关闭编辑权限!"
         return message
 
     # 以下功能尚未实现
