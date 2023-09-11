@@ -15,11 +15,6 @@ if not os.path.isfile("data/chatgpt.json"):
     file.write("{}")
     file.close()
 
-if not os.path.isfile("data/gpt4.json"):
-    file = open("data/gpt4.json", "w")
-    file.write("{}")
-    file.close()
-
 if not os.path.isfile("data/sign.json"):
     file = open("data/sign.json", "w")
     file.write("{}")
