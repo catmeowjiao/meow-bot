@@ -35,7 +35,7 @@ async def sudo_postprocessor(event: MessageEvent):
 
 
 @event_preprocessor
-async def sudo_command(event: MessageEvent, bot: Bot):
+async def _(bot: Bot, event: MessageEvent):
     for command_start in get_driver().config.command_start:
         if event.raw_message.startswith(
             f"{command_start}sudo"
@@ -51,9 +51,6 @@ async def sudo_command(event: MessageEvent, bot: Bot):
             cmd_start = command_start if config.sudo_insert_cmdstart else ""
             change_message(event, cmd_start)
             break
-
-
-async def _(bot: Bot, event: MessageEvent):
     if isinstance(event, GroupMessageEvent):
         file = open("data/node.json", "r")
         file_data = file.read()
