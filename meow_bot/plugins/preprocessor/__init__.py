@@ -5,7 +5,6 @@ from nonebot.matcher import Matcher
 from nonebot.params import ShellCommandArgs
 from nonebot.message import run_preprocessor, event_preprocessor, event_postprocessor
 from nonebot.exception import IgnoredException, ActionFailed
-from nonebot.plugin import on_shell_command, get_loaded_plugins
 from nonebot.adapters.onebot.v11 import (
     Bot,
     Event,
@@ -15,13 +14,9 @@ from nonebot.adapters.onebot.v11 import (
 )
 from nonebot.permission import SUPERUSER
 from nonebot import get_driver
-from .handle import Handle
-from .parser import npm_parser
-from .manager import plugin_manager
 from .config import Config
 
 config = Config.parse_obj(get_driver().config)
-npm = on_shell_command("manager", parser=npm_parser, priority=2, block=True)
 
 _sudo_original_user: dict[int, MessageEvent] = {}
 
