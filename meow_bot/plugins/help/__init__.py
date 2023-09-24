@@ -4,7 +4,7 @@ from nonebot.matcher import Matcher
 from nonebot.params import CommandArg
 from nonebot.adapters import Event, Message
 
-command_starts = list(nonebot.get_driver().config.command_start)
+command_starts = list(get_driver().config.command_start)
 __plugin_meta__ = PluginMetadata(
     name="MeowBot Help Menu",
     description="MeowBot帮助菜单",
