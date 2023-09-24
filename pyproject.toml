@@ -9,6 +9,6 @@ requires-python = ">=3.8, <4.0"
 adapters = [
     { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" }
 ]
-plugins = ["nonebot_plugin_saa"]
+plugins = []
 plugin_dirs = ["meow_bot/plugins"]
 builtin_plugins = []
