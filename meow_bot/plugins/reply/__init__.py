@@ -2,7 +2,9 @@ import time
 import random
 from nonebot import on_message
 from nonebot.adapters.onebot.v11 import Bot, Message, GroupMessageEvent
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 reply = on_message(priority=1, block=False)
 lastcache = {}
 lastsendtime = {}

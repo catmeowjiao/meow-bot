@@ -10,6 +10,9 @@ from nonebot.adapters.onebot.v11 import (
 )
 from nonebot.params import CommandArg
 from nonebot.permission import SUPERUSER
+from nonebot.plugin import PluginMetadata
+
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 
 switchmain = on_command("sm", permission=SUPERUSER, block=True, priority=2)
 switchdevelop = on_command("sd", permission=SUPERUSER, block=True, priority=2)

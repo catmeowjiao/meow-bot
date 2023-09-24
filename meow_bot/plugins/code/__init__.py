@@ -2,6 +2,13 @@ from nonebot import on_command
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import MessageEvent, Message, Bot, GroupMessageEvent
 from .run import run
+from nonebot.plugin import PluginMetadata
+
+__plugin_meta__ = PluginMetadata(
+    name="运行代码",
+    description="使用glot.io运行代码",
+    usage="[命令前缀]code [语言][回车][代码]: 使用glot.io以此语言运行代码",
+)
 
 runcode = on_command("code", block=True, priority=2)
 

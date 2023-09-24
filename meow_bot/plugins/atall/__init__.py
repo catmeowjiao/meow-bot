@@ -1,7 +1,12 @@
 from nonebot import on_command
+from nonebot.plugin import PluginMetadata
 from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent
 from nonebot.params import CommandArg
 from nonebot.permission import SUPERUSER
+
+__plugin_meta__ = PluginMetadata(
+    name="@全体成员", description="Bot分别@每位群成员", usage="(权限: 超级用户)[命令前缀]atall: Bot分别@每位群成员"
+)
 
 atall = on_command("atall", permission=SUPERUSER, priority=2, block=True)
 

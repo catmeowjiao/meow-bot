@@ -5,7 +5,9 @@ from nonebot import on_command
 from nonebot.params import CommandArg
 from nonebot.permission import SUPERUSER
 from nonebot.adapters.onebot.v11 import Message, MessageEvent
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 buy_ticket = on_command("ticket", block=True, priority=2)
 
 

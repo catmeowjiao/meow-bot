@@ -10,7 +10,9 @@ from nonebot.adapters.onebot.v11 import Bot, Event, MessageEvent, GroupMessageEv
 from .handle import Handle
 from .parser import npm_parser
 from .manager import plugin_manager
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 npm = on_shell_command("manager", parser=npm_parser, priority=1)
 
 

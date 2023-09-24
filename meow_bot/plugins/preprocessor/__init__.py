@@ -15,7 +15,9 @@ from nonebot.adapters.onebot.v11 import (
 from nonebot.permission import SUPERUSER
 from nonebot import get_driver
 from .config import Config
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 config = Config.parse_obj(get_driver().config)
 
 _sudo_original_user: dict[int, MessageEvent] = {}

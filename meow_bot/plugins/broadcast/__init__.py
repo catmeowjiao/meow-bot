@@ -4,7 +4,9 @@ from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent
 from nonebot.exception import IgnoredException
 from nonebot.params import CommandArg
 from nonebot.permission import SUPERUSER
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 broadcast = on_command("bc", permission=SUPERUSER, priority=2, block=True)
 broadcastlock = on_command("bcl", permission=SUPERUSER, priority=2, block=True)
 broadcastunlock = on_command("bcul", permission=SUPERUSER, priority=2, block=True)

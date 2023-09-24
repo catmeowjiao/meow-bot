@@ -7,7 +7,9 @@ from playwright.async_api import async_playwright
 import time
 import asyncio
 import os.path
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 preview = on_command("preview", priority=2, block=True)
 
 

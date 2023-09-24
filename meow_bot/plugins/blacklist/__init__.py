@@ -7,7 +7,9 @@ from nonebot.exception import IgnoredException
 from nonebot.message import event_preprocessor
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Message
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 file = open("data/blacklist.json", "r")
 file_data = file.read()
 file.close()

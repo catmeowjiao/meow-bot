@@ -4,7 +4,9 @@ import os
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot
 from nonebot.permission import SUPERUSER
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 update = on_command("update", permission=SUPERUSER, block=True, priority=2)
 
 

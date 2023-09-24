@@ -14,7 +14,9 @@ from nonebot.adapters.onebot.v11 import (
 )
 from .config import Config, ConfigError
 from .ChatSession import ChatSession
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 # 配置导入
 plugin_config = Config.parse_obj(nonebot.get_driver().config.dict())
 

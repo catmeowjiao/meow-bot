@@ -4,7 +4,9 @@ import time
 import sys
 from nonebot import on_command, get_driver
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent
+from nonebot.plugin import PluginMetadata
 
+__plugin_meta__ = PluginMetadata(name="test", description="test", usage="test")
 driver = get_driver()
 runtime = time.time()
 
