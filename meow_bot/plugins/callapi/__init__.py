@@ -2,7 +2,7 @@ import json
 from nonebot import on_command
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Message
-from nonebot.plugins import PluginMetadata
+from nonebot.plugin import PluginMetadata
 from nonebot.permission import SUPERUSER
 
 __plugin_meta__ = PluginMetadata(
