@@ -10,7 +10,7 @@ class ChatSession:
         self.max_limit = max_limit
 
     async def get_response(self, content, proxy):
-        openai.api_base = "https://api.naga.ac/v1"
+        openai.api_base = "https://api.xn--7gqr4f.com/v1"
         openai.api_key = self.api_key
         if proxy != "":
             openai.proxy = proxy

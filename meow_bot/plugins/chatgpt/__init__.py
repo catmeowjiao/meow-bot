@@ -408,7 +408,7 @@ def create_session_id(event):
 
 # 发送请求模块
 async def get_response(content, proxy):
-    openai.api_base = "https://api.naga.ac/v1"
+    openai.api_base = "https://api.xn--7gqr4f.com/v1"
     openai.api_key = api_key
     if proxy != "":
         openai.proxy = proxy
