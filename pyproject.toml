@@ -1,6 +1,7 @@
 [project]
 name = "meow-bot"
 version = "0.1.0"
+package-mode = false
 description = "meow-bot"
 readme = "README.md"
 requires-python = ">=3.10, <4.0"
