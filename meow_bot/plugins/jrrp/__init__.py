@@ -18,6 +18,6 @@ jrrp = on_command("jrrp", block=True, priority=2)
 async def _(bot: Bot, event: MessageEvent):
     today = datetime.now(CST)
     if today.date() == date(2026, 9, 19):
-        await jrrp.finish(f"你今天的人品是：100", at_sender=True)
+        await jrrp.finish(f"你今天的人品是：100", at_sender=True, reply_message=True)
     rng = random.Random(f"{event.get_user_id()}{today.strftime('%Y%m%d')}")
-    await jrrp.finish(f"你今天的人品是：{rng.randint(0, 100)}", at_sender=True)
+    await jrrp.finish(f"你今天的人品是：{rng.randint(0, 100)}", at_sender=True, reply_message=True)
